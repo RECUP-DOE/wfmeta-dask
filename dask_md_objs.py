@@ -15,6 +15,10 @@ class TaskState(Enum) :
     MEMORY = 'memory'
     FORGOTTEN = 'forgotten'
 
+class TransferTypeEnum(Enum) :
+    INCOMING = 'incoming_transfer'
+    OUTGOING = 'outgoing_transfer'
+
 class EventSource :
     addr = None
     stim_id = None
@@ -57,15 +61,57 @@ class SchedulerEvent :
               "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
               "\tSource: \n\t\t{source_info}\n".format(source_info = "\n\t\t".join(self.source.__str__().split("\n")))
               
-class WXferEvent: 
-    start: float
-    stop: float
-    middle: float
+class WXferEvent :
+    start: datetime
+    stop: datetime
+    middle: datetime
     duration: float
-    
-    def __init__(self, data) :
-        return
 
+    keys: Dict[str,int]
+
+    total: int
+    bandwith: float
+    compressed: float
+
+    requestor: str # ip addr; who
+    fulfiller: str # called_from
+
+    transfer_type: TransferTypeEnum
+
+    time : datetime
+
+    def __init__(self, data) :
+        self.start = datetime.fromtimestamp(data['start'])
+        self.stop = datetime.fromtimestamp(data['stop'])
+        self.middle = datetime.fromtimestamp(data['middle'])
+        self.duration = data['duration']
+
+        self.keys = eval(data['keys'])
+
+        self.total = data['total']
+        self.bandwith = data['bandwidth']
+        self.compressed = data['compressed']
+
+        self.requestor = data['who']
+        self.fulfiller = data['called_from']
+
+        self.transfer_type = TransferTypeEnum(data['type'])
+
+        self.time = datetime.fromtimestamp(data['time'])
+    
+    def __str__(self) -> str :
+        out = "Worker Transfer Event (Type: {t})".format(t=self.transfer_type)
+        out += "\n\tEvent time: {t}".format(t=self.time)
+        out += "\n\tRequestor (Them): {r}\tFulfiller (Me): {f}".format(r=self.requestor, f=self.fulfiller)
+        out += "\n\tStart: {s}\tMiddle: {m}\tEnd: {e}\t(Duration: {d})".format(
+            s=self.start, m=self.middle, e=self.stop, d=self.duration
+        )
+        out += "\n\tTotal Transfer: {t}".format(t=self.total)
+        out += "\n\tAffiliated Keys:"
+        for key in self.keys :
+            out += "\n\t\t{k}".format(k=key)
+        return out
+    
 class Task:
     name: str
     events: List[SchedulerEvent]
