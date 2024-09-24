@@ -5,7 +5,7 @@ from typing import Dict, List, Union
 
 from dask_md_helpers import generate_times
 
-class EventState(Enum) :
+class TaskState(Enum) :
     # enums for the various event states
     # TODO : put into a logical order, perhaps can check if QUEUED > RELEASED later.
     RELEASED = 'released'
@@ -31,8 +31,8 @@ class SchedulerEvent :
     t_begins : Union[datetime, None]
     t_ends : Union[datetime, None]
 
-    start: EventState
-    finish: EventState
+    start: TaskState
+    finish: TaskState
 
     source: EventSource
     
@@ -44,8 +44,8 @@ class SchedulerEvent :
              for key in ["time","begins","ends"]}
         )
 
-        self.start = EventState(data["start"] )
-        self.finish = EventState(data["finish"])
+        self.start = TaskState(data["start"] )
+        self.finish = TaskState(data["finish"])
 
         self.source = EventSource(data["called_from"], data["stimulus_id"])
 
