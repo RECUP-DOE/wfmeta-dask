@@ -23,7 +23,7 @@ file_meta_info = {
     "output_compressed" : ("-c", "data/compressed_out.pickle")
 }
 
-def extract_scheduler_metadata(sched_file: str, out_file:str = None, debug: bool = False, th: TaskHandler = None) -> TaskHandler:
+def extract_scheduler_metadata(sched_file: str, debug: bool = False, th: TaskHandler = None) -> TaskHandler:
     sched_x = pd.read_csv(sched_file)
     nrow, ncol = sched_x.shape
     #begins_lt_ends(sched_x["begins"], sched_x["ends"], debug=True)
@@ -40,14 +40,9 @@ def extract_scheduler_metadata(sched_file: str, out_file:str = None, debug: bool
         print(len(th.tasks))
         print(th.tasks[list(th.tasks.keys())[0]])
 
-    #with open(out_file, "w") as f:
-    #    keys = list(th.tasks.keys())
-    #    for i in range(0, len(keys)) :
-    #        f.write(th.tasks[keys[i]].__str__())
-    
     return th
 
-def extract_worker_xfer_metadata(worker_xfer_file: str, out_file:str = None, debug: bool = False, th:TaskHandler = None) -> TaskHandler :
+def extract_worker_xfer_metadata(worker_xfer_file: str, debug: bool = False, th:TaskHandler = None) -> TaskHandler :
     wxfer_x = pd.read_csv(worker_xfer_file)
     nrow, ncol = wxfer_x.shape
 
@@ -59,12 +54,6 @@ def extract_worker_xfer_metadata(worker_xfer_file: str, out_file:str = None, deb
     if debug :
         print(len(th.tasks))
         print(th.tasks[list(th.tasks.keys())[0]])
-
-    if out_file is not None :
-       with open(out_file, "w") as f:
-            keys = list(th.tasks.keys())
-            for i in range(0, len(keys)) :
-                f.write(th.tasks[keys[i]].__str__())
 
     return th
 
@@ -101,6 +90,12 @@ if __name__ == "__main__":
     th = TaskHandler()
     extract_scheduler_metadata(sched_file, out_file, debug, th)
     extract_worker_xfer_metadata(worker_xfer_file, debug, th)
+
+    if out_file is not None :
+       with open(out_file, "w") as f:
+            keys = list(th.tasks.keys())
+            for i in range(0, len(keys)) :
+                f.write(th.tasks[keys[i]].__str__())
 
     with open(out_compressed, 'wb') as f:
         pickle.dump(th, f, pickle.HIGHEST_PROTOCOL)
