@@ -73,7 +73,7 @@ class WXferEvent(Event) :
     keys: Dict[str,int]
 
     total: int
-    bandwith: float
+    bandwidth: float
     compressed: float
 
     requestor: str # ip addr; who
@@ -92,7 +92,7 @@ class WXferEvent(Event) :
         self.keys = eval(data['keys'])
 
         self.total = data['total']
-        self.bandwith = data['bandwidth']
+        self.bandwidth = data['bandwidth']
         self.compressed = data['compressed']
 
         self.requestor = data['who']
