@@ -221,3 +221,9 @@ class TaskHandler :
             self.tasks[id] = temp_task
         else :
             self.tasks[id].add_event(event)
+    
+    def return_names(self) -> List[str] :
+        return list(self.tasks.keys())
+    
+    def get_task_by_name(self, taskname:str) -> Task :
+        return self.tasks[taskname]
