@@ -30,7 +30,10 @@ class EventSource :
     def __str__(self) -> str :
         return "Called from: {e.addr}\nStimulus ID: {e.stim_id}".format(e=self)
 
-class SchedulerEvent :
+class Event:
+    pass
+
+class SchedulerEvent(Event) :
     t_event : datetime
     t_begins : Union[datetime, None]
     t_ends : Union[datetime, None]
@@ -56,12 +59,12 @@ class SchedulerEvent :
         self.task_id = data["key"]
 
     def __str__(self) -> str :
-        return "Event Object for task {e.task_id}\n".format(e=self) + \
+        return "Scheduler Event for task {e.task_id}\n".format(e=self) + \
               "\tEvent time: {e.t_event}\tBegin time: {e.t_begins}\tEnd time: {e.t_ends}\n".format(e=self) + \
               "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
               "\tSource: \n\t\t{source_info}\n".format(source_info = "\n\t\t".join(self.source.__str__().split("\n")))
               
-class WXferEvent :
+class WXferEvent(Event) :
     start: datetime
     stop: datetime
     middle: datetime
@@ -100,61 +103,99 @@ class WXferEvent :
         self.time = datetime.fromtimestamp(data['time'])
     
     def __str__(self) -> str :
-        out = "Worker Transfer Event (Type: {t})".format(t=self.transfer_type)
-        out += "\n\tEvent time: {t}".format(t=self.time)
-        out += "\n\tRequestor (Them): {r}\tFulfiller (Me): {f}".format(r=self.requestor, f=self.fulfiller)
-        out += "\n\tStart: {s}\tMiddle: {m}\tEnd: {e}\t(Duration: {d})".format(
+        out = "Worker Transfer Event (Type: {t})\n".format(t=self.transfer_type)
+        out += "\tEvent time: {t}\n".format(t=self.time)
+        out += "\tRequestor (Them): {r}\tFulfiller (Me): {f}\n".format(r=self.requestor, f=self.fulfiller)
+        out += "\tStart: {s}\tMiddle: {m}\tEnd: {e}\t(Duration: {d})\n".format(
             s=self.start, m=self.middle, e=self.stop, d=self.duration
         )
-        out += "\n\tTotal Transfer: {t}".format(t=self.total)
-        out += "\n\tAffiliated Keys:"
+        out += "\tTotal Transfer: {t}\n".format(t=self.total)
+        out += "\tAffiliated Keys:"
+        
         for key in self.keys :
             out += "\n\t\t{k}".format(k=key)
+
+        out += "\n"
         return out
+    
+    def is_only_1_task(self) -> bool :
+        if len(list(self.keys.keys())) == 1 :
+            return True
+        else :
+            False
+
+    def n_tasks(self) -> int :
+        return len(list(self.keys.keys()))
+
+    def get_key_name(self, i: int = 0) -> str :
+        return list(self.keys.keys())[i]
     
 class Task:
     name: str
-    events: List[SchedulerEvent]
+    events: List[Event]
 
     t_start: datetime = None
     t_end: datetime = None
 
     workers: List[str]
     initiated: bool = False
-    def __init__(self, first_event: Union[SchedulerEvent, None] = None) :
+    def __init__(self, first_event: Union[Event, None]) :
         self.events = []
         self.workers = []
 
         if first_event is not None :
-            self.add_event(first_event)
+            if isinstance(first_event, SchedulerEvent) :
+                self.name = first_event.task_id
+                self.initiated = True
+                
+                self.add_scheduler_event(first_event)
+            elif isinstance(first_event, WXferEvent) :
+                self.name = first_event.get_key_name()
 
-    def add_event(self, first_event: SchedulerEvent) -> None :
-        self.name = first_event.task_id
-        self.events.append(first_event)
-        self.initiated = True
+                self.add_wxfer_event(first_event)
+            else :
+                raise ValueError("Unexpected Event Type in Task Construction.")
 
-        if first_event.t_begins is not None :
+    def add_event(self, event_inp: Event) -> None:
+        if isinstance(event_inp, SchedulerEvent) :
+            self.add_scheduler_event(event_inp)
+        elif isinstance(event_inp, WXferEvent) :
+            if event_inp not in self.events :
+                self.add_wxfer_event(event_inp)
+        else :
+            raise ValueError("Unexpected Event Type in Task.add_event()") 
+
+    def add_wxfer_event(self, event_inp: WXferEvent) -> None :
+        self.events.append(event_inp)
+
+    def add_scheduler_event(self, event_inp: SchedulerEvent) -> None :
+        self.events.append(event_inp)
+
+        if event_inp.t_begins is not None :
             if self.t_start is None:
-                self.t_start = first_event.t_begins
+                self.t_start = event_inp.t_begins
             else :
-                if first_event.t_begins < self.t_start :
-                    self.t_start = first_event.t_begins
+                if event_inp.t_begins < self.t_start :
+                    self.t_start = event_inp.t_begins
 
-        if first_event.t_ends is not None :
+        if event_inp.t_ends is not None :
             if self.t_end is None:
-                self.t_end = first_event.t_ends
+                self.t_end = event_inp.t_ends
             else :
-                if first_event.t_ends < self.t_end :
-                    self.t_end = first_event.t_ends
+                if event_inp.t_ends < self.t_end :
+                    self.t_end = event_inp.t_ends
 
     def __str__(self) -> str :
         event_strs = ""
         for e in self.events :
             event_strs += e.__str__()
 
-        return "Task object for task {e.name}:\n".format(e=self) + \
-                "\tEvent objects:\n\t\t{event_info}\n".format(event_info = "\n\t\t".join(event_strs.split("\n"))) + \
-                "Start time: {e.t_start}\tEnd time: {e.t_end}".format(e=self)
+        out = "Task object for task {e.name}:\n".format(e=self)
+        out += "\tEvent objects:\n\t\t{event_info}".format(event_info = "\n\t\t".join(event_strs.split("\n")))
+        out = out.strip()
+        out += "\n\tStart time: {e.t_start}\tEnd time: {e.t_end}\n".format(e=self)
+
+        return out
 
 class TaskHandler :
     tasks: Dict[str, Task]
@@ -162,10 +203,21 @@ class TaskHandler :
     def __init__(self) :
         self.tasks = {}
     
-    def add_event(self, event: SchedulerEvent) -> None :
-        if event.task_id not in self.tasks.keys() :
+    def add_event(self, event: Event) -> None :
+        if type(event) is SchedulerEvent :
+            self._inner_add_event(event.task_id, event)
+        elif type(event) is WXferEvent :
+            if event.is_only_1_task() :
+                e_id: str = event.get_key_name(0)
+                self._inner_add_event(e_id, event)
+            else :
+                for i in range(0, event.n_tasks()) :
+                    i_id: str = event.get_key_name(i)
+                    self._inner_add_event(i_id, event)
+
+    def _inner_add_event(self, id:str, event:Event) :
+        if id not in self.tasks.keys() :
             temp_task = Task(event)
-            self.tasks[event.task_id] = temp_task
-        
+            self.tasks[id] = temp_task
         else :
-            self.tasks[event.task_id].add_event(event)
+            self.tasks[id].add_event(event)
