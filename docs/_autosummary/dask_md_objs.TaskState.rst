@@ -16,13 +16,18 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~TaskState.RELEASED
-      ~TaskState.WAITING
-      ~TaskState.QUEUED
-      ~TaskState.PROCESSING
-      ~TaskState.MEMORY
-      ~TaskState.FORGOTTEN
+   .. autoattribute::
+      RELEASED
+   .. autoattribute::
+      WAITING
+   .. autoattribute::
+      QUEUED
+   .. autoattribute::
+      PROCESSING
+   .. autoattribute::
+      MEMORY
+   .. autoattribute::
+      FORGOTTEN
    
    

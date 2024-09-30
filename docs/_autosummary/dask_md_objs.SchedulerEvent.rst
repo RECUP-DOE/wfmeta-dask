@@ -12,9 +12,9 @@
    
    .. rubric:: Methods
 
-   .. autosummary::
    
-      ~SchedulerEvent.__init__
+   .. automethod::
+      __init__
    
    
 
@@ -22,14 +22,20 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~SchedulerEvent.t_event
-      ~SchedulerEvent.t_begins
-      ~SchedulerEvent.t_ends
-      ~SchedulerEvent.start
-      ~SchedulerEvent.finish
-      ~SchedulerEvent.source
-      ~SchedulerEvent.task_id
+   .. autoattribute::
+      t_event
+   .. autoattribute::
+      t_begins
+   .. autoattribute::
+      t_ends
+   .. autoattribute::
+      start
+   .. autoattribute::
+      finish
+   .. autoattribute::
+      source
+   .. autoattribute::
+      task_id
    
    

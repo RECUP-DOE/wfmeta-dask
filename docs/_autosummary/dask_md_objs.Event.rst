@@ -12,9 +12,9 @@
    
    .. rubric:: Methods
 
-   .. autosummary::
    
-      ~Event.__init__
+   .. automethod::
+      __init__
    
    
 

@@ -12,12 +12,15 @@
    
    .. rubric:: Methods
 
-   .. autosummary::
    
-      ~TaskHandler.__init__
-      ~TaskHandler.add_event
-      ~TaskHandler.get_task_by_name
-      ~TaskHandler.return_names
+   .. automethod::
+      __init__
+   .. automethod::
+      add_event
+   .. automethod::
+      get_task_by_name
+   .. automethod::
+      return_names
    
    
 
@@ -25,8 +28,8 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~TaskHandler.tasks
+   .. autoattribute::
+      tasks
    
    

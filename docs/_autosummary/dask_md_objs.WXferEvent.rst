@@ -12,12 +12,15 @@
    
    .. rubric:: Methods
 
-   .. autosummary::
    
-      ~WXferEvent.__init__
-      ~WXferEvent.get_key_name
-      ~WXferEvent.is_only_1_task
-      ~WXferEvent.n_tasks
+   .. automethod::
+      __init__
+   .. automethod::
+      get_key_name
+   .. automethod::
+      is_only_1_task
+   .. automethod::
+      n_tasks
    
    
 
@@ -25,19 +28,30 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~WXferEvent.start
-      ~WXferEvent.stop
-      ~WXferEvent.middle
-      ~WXferEvent.duration
-      ~WXferEvent.keys
-      ~WXferEvent.total
-      ~WXferEvent.bandwidth
-      ~WXferEvent.compressed
-      ~WXferEvent.requestor
-      ~WXferEvent.fulfiller
-      ~WXferEvent.transfer_type
-      ~WXferEvent.time
+   .. autoattribute::
+      start
+   .. autoattribute::
+      stop
+   .. autoattribute::
+      middle
+   .. autoattribute::
+      duration
+   .. autoattribute::
+      keys
+   .. autoattribute::
+      total
+   .. autoattribute::
+      bandwidth
+   .. autoattribute::
+      compressed
+   .. autoattribute::
+      requestor
+   .. autoattribute::
+      fulfiller
+   .. autoattribute::
+      transfer_type
+   .. autoattribute::
+      time
    
    

@@ -44,18 +44,35 @@ class Event:
     pass
 
 class SchedulerEvent(Event) :
+    """An Event that was sent by a Scheduler instance.
+
+    Object representing an event that was sent by a DASK Scheduler instance.
+    Contains information unique to messages sent by a DASK scheduler.
+    """
+    #: The `datetime` of the event message itself.
     t_event : datetime
+    #: The `datetime` of the task start, if applicable.
     t_begins : Union[datetime, None]
+    #: The `datetime` of the task end, if applicable.
     t_ends : Union[datetime, None]
 
+    #: The starting state of the task described in this message, as a :class:`~dask_md_objs.TaskState`.
     start: TaskState
+    #: The ending state of the task described in this message, as a :class:`~dask_md_objs.TaskState`.
     finish: TaskState
 
+    #: The :class:`~dask_md_objs.EventSource` describing the source of the message that led to the creation of this SchedulerEvent.
     source: EventSource
     
+    #: The id of the task that this SchedulerEvent is describing, as a string.
     task_id: str
     # TODO : key, thread, worker, prefix, group
     def __init__(self, data) :
+        """Initialize a new SchedulerEvent object.
+
+        :param data: The pandas dataframe row that represents all data associated with a SchedulerEvent, including 'time', 'begins', 'ends', 'called_from', 'stimulus_id', and 'key'.
+        :type data: pandas dataframe row
+        """
         self.t_event, self.t_begins, self.t_ends = generate_times(
             {key: data[key]
              for key in ["time","begins","ends"]}
@@ -75,6 +92,16 @@ class SchedulerEvent(Event) :
               "\tSource: \n\t\t{source_info}\n".format(source_info = "\n\t\t".join(self.source.__str__().split("\n")))
               
 class WXferEvent(Event) :
+    """An Event that represents a file transfer between Workers.
+
+    An object that represents an event message that signifies a file has
+    been transferred between two workers.
+
+    :param Event: _description_
+    :type Event: _type_
+    :return: _description_
+    :rtype: _type_
+    """
     start: datetime
     stop: datetime
     middle: datetime

@@ -11,9 +11,9 @@
    {% if methods %}
    .. rubric:: Methods
 
-   .. autosummary::
    {% for item in methods %}
-      ~{{ name }}.{{ item }}
+   .. automethod::
+      {{ item }}
    {%- endfor %}
    {% endif %}
    {% endblock %}
@@ -22,9 +22,9 @@
    {% if attributes %}
    .. rubric:: Attributes
 
-   .. autosummary::
    {% for item in attributes %}
-      ~{{ name }}.{{ item }}
+   .. autoattribute::
+      {{ item }}
    {%- endfor %}
    {% endif %}
    {% endblock %}

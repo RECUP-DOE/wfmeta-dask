@@ -16,9 +16,10 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~TransferTypeEnum.INCOMING
-      ~TransferTypeEnum.OUTGOING
+   .. autoattribute::
+      INCOMING
+   .. autoattribute::
+      OUTGOING
    
    

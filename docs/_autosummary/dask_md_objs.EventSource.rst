@@ -12,9 +12,9 @@
    
    .. rubric:: Methods
 
-   .. autosummary::
    
-      ~EventSource.__init__
+   .. automethod::
+      __init__
    
    
 
@@ -22,9 +22,10 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~EventSource.addr
-      ~EventSource.stim_id
+   .. autoattribute::
+      addr
+   .. autoattribute::
+      stim_id
    
    

@@ -12,12 +12,15 @@
    
    .. rubric:: Methods
 
-   .. autosummary::
    
-      ~Task.__init__
-      ~Task.add_event
-      ~Task.add_scheduler_event
-      ~Task.add_wxfer_event
+   .. automethod::
+      __init__
+   .. automethod::
+      add_event
+   .. automethod::
+      add_scheduler_event
+   .. automethod::
+      add_wxfer_event
    
    
 
@@ -25,13 +28,18 @@
    
    .. rubric:: Attributes
 
-   .. autosummary::
    
-      ~Task.initiated
-      ~Task.t_end
-      ~Task.t_start
-      ~Task.name
-      ~Task.events
-      ~Task.workers
+   .. autoattribute::
+      initiated
+   .. autoattribute::
+      t_end
+   .. autoattribute::
+      t_start
+   .. autoattribute::
+      name
+   .. autoattribute::
+      events
+   .. autoattribute::
+      workers
    
    
