@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
+    "autodocsumm>=0.2.13",
     "dash-mantine-components>=0.14.4",
     "dash>=2.18.1",
     "ipykernel>=6.29.5",

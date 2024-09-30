@@ -6,14 +6,16 @@
 Welcome to DASK Capture's documentation!
 ========================================
 
+Yup.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :hidden:
 
    self
    intro
-   modules
-
+   module2
 
 Indices and tables
 ==================

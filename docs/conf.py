@@ -21,13 +21,13 @@ release = 'v0.1'
 
 extensions = [
 'sphinx.ext.autodoc',
-'sphinx.ext.autosummary',
+'autodocsumm',
 ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-autosummary_generate = True
+autodoc_typehints = "description"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
