@@ -21,15 +21,17 @@ release = 'v0.1'
 
 extensions = [
 'sphinx.ext.autodoc',
+'sphinx.ext.autosummary',
 ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-
+autosummary_generate = True
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
-html_static_path = ['_static']
+html_theme = 'sphinx_rtd_theme'
+#html_theme = 'alabaster'
+#html_static_path = ['_static']

@@ -10,8 +10,10 @@ Welcome to DASK Capture's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-.. automodule:: dask_md_objs
-   :members:
+   self
+   intro
+   modules
+
 
 Indices and tables
 ==================

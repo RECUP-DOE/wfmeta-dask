@@ -10,5 +10,6 @@ dependencies = [
     "ipykernel>=6.29.5",
     "numpy>=1.24.4",
     "pandas>=2.0.3",
+    "sphinx-rtd-theme>=2.0.0",
     "sphinx>=7.1.2",
 ]
