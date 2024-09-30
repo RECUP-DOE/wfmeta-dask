@@ -20,7 +20,17 @@ class TransferTypeEnum(Enum) :
     OUTGOING = 'outgoing_transfer'
 
 class EventSource :
+    """Class that describes the source of an Event message.
+
+    Class that describes the source of an Event message. Primarily, it 
+    describes the IP Address of the source of the message, as well as
+    the stimulus ID of the event that caused the message to be sent.
+
+    TODO: Describe what stimulus ID is.
+    """
+    #: IP Address of the message source.
     addr = None
+    #: Stimulus ID that caused the message to be sent.
     stim_id = None
 
     def __init__(self, addr, stim_id) :

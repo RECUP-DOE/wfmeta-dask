@@ -2,3 +2,4 @@ __pycache__/*
 .python-version
 uv.lock
 .venv
+docs/_build/
