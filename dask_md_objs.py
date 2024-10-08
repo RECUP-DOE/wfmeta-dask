@@ -7,7 +7,8 @@ from typing import Dict, List, Union
 from dask_md_helpers import generate_times
 
 class TaskState(Enum) :
-    # enums for the various event states
+    """Describes the possible states of a :class:`~dask_md_obj.Task`
+    """
     # TODO : put into a logical order, perhaps can check if QUEUED > RELEASED later.
     RELEASED = 'released'
     WAITING = 'waiting'
@@ -17,6 +18,8 @@ class TaskState(Enum) :
     FORGOTTEN = 'forgotten'
 
 class TransferTypeEnum(Enum) :
+    """Describes whether a :class:`~dask_md_obj.WXferEvent` represents an incoming or outgoing file transfer.
+    """
     INCOMING = 'incoming_transfer'
     OUTGOING = 'outgoing_transfer'
 
@@ -33,6 +36,7 @@ class EventSource :
     addr = None
     #: Stimulus ID that caused the message to be sent.
     stim_id = None
+    # TODO : examples or enums for stimulus types
 
     def __init__(self, addr, stim_id) :
         self.addr = addr
@@ -42,6 +46,7 @@ class EventSource :
         return "Called from: {e.addr}\nStimulus ID: {e.stim_id}".format(e=self)
 
 class Event:
+    # TODO: make useful
     pass
 
 class SchedulerEvent(Event) :
@@ -98,11 +103,6 @@ class WXferEvent(Event) :
 
     An object that represents an event message that signifies a file has
     been transferred between two workers.
-
-    :param Event: _description_
-    :type Event: _type_
-    :return: _description_
-    :rtype: _type_
     """
     start: datetime
     stop: datetime
@@ -110,16 +110,23 @@ class WXferEvent(Event) :
     duration: float
 
     keys: Dict[str,int]
+    """Dictionary containing the `keys` information from the worker transfer message file.
+    
+    This dictionary is generating by `eval` ing the data directly."""
 
     total: int
     bandwidth: float
     compressed: float
 
+    #: IP address representing the `who` column of the worker transfer event - the other worker involved in this event.
     requestor: str # ip addr; who
+    #: IP address representing the `called_from` column of the worker transfer event - the worker that noted this event.
     fulfiller: str # called_from
 
+    #: The type of transfer this event describes, using a :class:`~dask_md_objs.TransferTypeEnum`. Can be either INCOMING or OUTGOING.
     transfer_type: TransferTypeEnum
 
+    #: The time this event was noted.
     time : datetime
 
     def __init__(self, data) :
@@ -159,9 +166,9 @@ class WXferEvent(Event) :
         return out
     
     def is_only_1_task(self) -> bool :
-        """This is a function docstring example.
+        """Returns whether this worker transfer event only relates to one task.
 
-        :return: _description_
+        :return: True if this wxferevent only relates to one task.
         :rtype: bool
         """
         if len(list(self.keys.keys())) == 1 :
@@ -170,9 +177,21 @@ class WXferEvent(Event) :
             False
 
     def n_tasks(self) -> int :
+        """Returns the number of tasks this wxfer event is related to.
+
+        :return: An integer representing the number of tasks this wxfer event is related to.
+        :rtype: int
+        """
         return len(list(self.keys.keys()))
 
     def get_key_name(self, i: int = 0) -> str :
+        """Given an integer index, returns the name of the task at that position in its internal list of keys.
+
+        :param i: The integer index of the desired task id, defaults to 0
+        :type i: int, optional
+        :return: The name of the task found
+        :rtype: str
+        """
         return list(self.keys.keys())[i]
     
     def __eq__(self, other) -> bool :
