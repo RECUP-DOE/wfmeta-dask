@@ -1,5 +1,7 @@
-__pycache__/*
+__pycache__/
 .python-version
 uv.lock
 .venv
 docs/_build/
+.vscode
+.pytest_cache

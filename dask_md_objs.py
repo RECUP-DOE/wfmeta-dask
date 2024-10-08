@@ -52,8 +52,6 @@ class SchedulerEvent(Event) :
     """
     t_event : datetime
     """ The `datetime` of the event message itself.
-    
-    Adding more text here to see how it behaves.
     """
     #: The `datetime` of the task start, if applicable.
     t_begins : Union[datetime, None]
@@ -177,6 +175,25 @@ class WXferEvent(Event) :
     def get_key_name(self, i: int = 0) -> str :
         return list(self.keys.keys())[i]
     
+    def __eq__(self, other) -> bool :
+        if not isinstance(other, WXferEvent) :
+            raise NotImplementedError("Cannot check if WXferEvent is equal to {}".format(type(other)))
+        else :
+            if not (self.start == other.start) or \
+                not (self.stop == other.stop) or \
+                not (self.middle == other.middle) or \
+                not (self.duration == other.duration) or \
+                not (self.keys == other.keys) or \
+                not (self.total == other.total) or \
+                not (self.bandwidth == other.bandwidth) or \
+                not (self.compressed == other.compressed) or \
+                not (self.requestor == other.requestor) or \
+                not (self.fulfiller == other.fulfiller) or \
+                not (self.transfer_type == other.transfer_type) or \
+                not (self.time == other.time) :
+                return False
+        return True
+    
 class Task:
     name: str
     events: List[Event]
@@ -231,6 +248,25 @@ class Task:
             else :
                 if event_inp.t_ends < self.t_end :
                     self.t_end = event_inp.t_ends
+    
+    def return_wxfer_events(self, filter_type: TransferTypeEnum = None) -> List[WXferEvent] :
+        """Returns a list of worker transfer events associated with the Task.
+
+        :param filter_type: Whether to filter to only TransferTypeEnum.INCOMING or TransferTypeEnum.OUTGOING, defaults to None
+        :type filter_type: :class:`TransferTypeEnum`, optional
+        :return: A List of :class:`WXferEvent` s of the given `filter_type`, if any.
+        :rtype: List[WXferEvent]
+        """
+        filter = filter_type is not None
+        output = []
+        for e in self.events :
+            if isinstance(e, WXferEvent) :
+                if filter :
+                    if e.transfer_type == filter_type :
+                        output.append(e)
+                else :
+                    output.append(e)
+        return output
 
     def __str__(self) -> str :
         event_strs = ""
@@ -271,6 +307,13 @@ class TaskHandler :
     
     def return_names(self) -> List[str] :
         return list(self.tasks.keys())
+    
+    def return_all_wxfer_events(self, filter_type: TransferTypeEnum = None) -> List[WXferEvent]:
+        output: List[WXferEvent] = []
+        for t in self.tasks.values() :
+            output.extend(t.return_wxfer_events(filter_type))
+
+        return list(set(output))
     
     def get_task_by_name(self, taskname:str) -> Task :
         return self.tasks[taskname]
