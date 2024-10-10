@@ -340,14 +340,17 @@ class TaskHandler :
     def return_all_wxfer_events(self, filter_type: TransferTypeEnum = None) -> List[WXferEvent]:
         output: List[WXferEvent] = []
         for t in self.tasks.values() :
-            output.extend(t.return_wxfer_events(filter_type))
+            returned = t.return_wxfer_events(filter_type)
+            for r in returned :
+                if r not in output :
+                    output.append(r)
 
-        return list(set(output))
-    
+        return output
+
     def return_all_events(self) -> List[Event] :
         output: List[Event] = []
         for t in self.tasks.values() :
-            output.extend(t.retern_events())
+            raise NotImplementedError()
         
         return list(set(output))
     
