@@ -62,8 +62,8 @@ if __name__ == "__main__":
     worker_file = file_meta_info["worker_file"][1]
     worker_trans_file = file_meta_info["worker_trans_file"][1]
     worker_xfer_file = file_meta_info["worker_xfer_file"][1]
-    out_file = file_meta_info["output_file"][1]
-    out_compressed = file_meta_info["output_compressed"][1]
+    output_file = file_meta_info["output_file"][1]
+    output_compressed = file_meta_info["output_compressed"][1]
     debug = False
 
     parser = ap.ArgumentParser(
@@ -81,21 +81,21 @@ if __name__ == "__main__":
     # set whichever ones aren't None; warn for every input left as default.
     for argname in list(file_meta_info.keys()) :
         if getattr(args,argname) is not None :
-            locals()[argname] = args[argname]
+            locals()[argname] = getattr(args, argname)
         else :
             warnings.warn("Parameter {argname} defaulted to {argloc}.".format(argname=argname, argloc=file_meta_info[argname][1]), UserWarning)
     debug = args.debug
 
     # off to the races
     th = TaskHandler()
-    extract_scheduler_metadata(sched_file, out_file, debug, th)
+    extract_scheduler_metadata(sched_file, debug, th)
     extract_worker_xfer_metadata(worker_xfer_file, debug, th)
 
-    if out_file is not None :
-       with open(out_file, "w") as f:
+    if output_file is not None :
+       with open(output_file, "w") as f:
             keys = list(th.tasks.keys())
             for i in range(0, len(keys)) :
                 f.write(th.tasks[keys[i]].__str__())
 
-    with open(out_compressed, 'wb') as f:
+    with open(output_compressed, 'wb') as f:
         pickle.dump(th, f, pickle.HIGHEST_PROTOCOL)

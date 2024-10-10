@@ -194,8 +194,18 @@ class WXferEvent(Event) :
         """
         return list(self.keys.keys())[i]
     
+    def return_key_names(self) -> List[str]:
+        """Return all of the key names related to this wxfer event.
+
+        :return: List of key names
+        :rtype: List[str]
+        """
+        return list(self.keys.keys())
+
     def __eq__(self, other) -> bool :
         if not isinstance(other, WXferEvent) :
+            if isinstance(other, SchedulerEvent) :
+                return False
             raise NotImplementedError("Cannot check if WXferEvent is equal to {}".format(type(other)))
         else :
             if not (self.start == other.start) or \
@@ -276,7 +286,7 @@ class Task:
         :return: A List of :class:`WXferEvent` s of the given `filter_type`, if any.
         :rtype: List[WXferEvent]
         """
-        filter = filter_type is not None
+        filter = (filter_type is not None)
         output = []
         for e in self.events :
             if isinstance(e, WXferEvent) :
@@ -332,6 +342,13 @@ class TaskHandler :
         for t in self.tasks.values() :
             output.extend(t.return_wxfer_events(filter_type))
 
+        return list(set(output))
+    
+    def return_all_events(self) -> List[Event] :
+        output: List[Event] = []
+        for t in self.tasks.values() :
+            output.extend(t.retern_events())
+        
         return list(set(output))
     
     def get_task_by_name(self, taskname:str) -> Task :
