@@ -171,10 +171,7 @@ class WXferEvent(Event) :
         :return: True if this wxferevent only relates to one task.
         :rtype: bool
         """
-        if len(list(self.keys.keys())) == 1 :
-            return True
-        else :
-            False
+        return len(self.keys.keys()) == 1
 
     def n_tasks(self) -> int :
         """Returns the number of tasks this wxfer event is related to.
@@ -201,6 +198,56 @@ class WXferEvent(Event) :
         :rtype: List[str]
         """
         return list(self.keys.keys())
+    
+    def identical_except_fulfiller(self, other: 'WXferEvent') -> bool :
+        """Returns true if the given WXferEvent is identical except for the fulfiller field.
+
+        Every attribute betwee this and the other wxfer event must match identically, and the fulfiller attributes _must_ differ.
+
+        :param other: The WXferEvent to compare to
+        :type other: WXferEvent
+        :return: True if the events are identical except fulfiller
+        :rtype: bool
+        """
+        if not (self.start == other.start) or \
+            not (self.stop == other.stop) or \
+            not (self.middle == other.middle) or \
+            not (self.duration == other.duration) or \
+            not (self.keys == other.keys) or \
+            not (self.total == other.total) or \
+            not (self.bandwidth == other.bandwidth) or \
+            not (self.compressed == other.compressed) or \
+            not (self.requestor == other.requestor) or \
+            not (self.fulfiller != other.fulfiller) or \
+            not (self.transfer_type == other.transfer_type) or \
+            not (self.time == other.time) :
+            return False
+        return True
+    
+    def identical_except_requestor(self, other: 'WXferEvent') -> bool :
+        """Returns true if the given WXferEvent is identical except for the requestor field.
+
+        Every attribute betwee this and the other wxfer event must match identically, and the requestor attributes _must_ differ.
+
+        :param other: The WXferEvent to compare to
+        :type other: WXferEvent
+        :return: True if the events are identical except requestor
+        :rtype: bool
+        """
+        if not (self.start == other.start) or \
+            not (self.stop == other.stop) or \
+            not (self.middle == other.middle) or \
+            not (self.duration == other.duration) or \
+            not (self.keys == other.keys) or \
+            not (self.total == other.total) or \
+            not (self.bandwidth == other.bandwidth) or \
+            not (self.compressed == other.compressed) or \
+            not (self.requestor != other.requestor) or \
+            not (self.fulfiller == other.fulfiller) or \
+            not (self.transfer_type == other.transfer_type) or \
+            not (self.time == other.time) :
+            return False
+        return True
 
     def __eq__(self, other) -> bool :
         if not isinstance(other, WXferEvent) :
