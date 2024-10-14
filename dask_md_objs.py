@@ -200,6 +200,35 @@ class WXferEvent(Event) :
         """
         return list(self.keys.keys())
     
+    def _check_most_equiv(self, other: 'WXferEvent') -> bool :
+        """Checks most equivalencies between WXfer events to avoid repetition in identical_except_(fulfiller,requestor) and __eq__. 
+
+        Checks the equivalency of all internal attributes of Wxfer events except for requestor and fulfillor. 
+        In the case where the WXfer events are `TransferType.INCOMING`, `compressed` is ignored because `compressed` is not provided for incoming messages.
+
+        :param other: Other WXfer event to compare against.
+        :type other: WXferEvent
+        :return: True if all attributes except requestor or fulfiller match.
+        :rtype: bool
+        """
+        if not (self.start == other.start) or \
+            not (self.stop == other.stop) or \
+            not (self.middle == other.middle) or \
+            not (self.duration == other.duration) or \
+            not (self.keys == other.keys) or \
+            not (self.total == other.total) or \
+            not (self.bandwidth == other.bandwidth) or \
+            not (self.transfer_type == other.transfer_type) or \
+            not (self.time == other.time) :
+                return False
+
+        elif self.transfer_type == TransferTypeEnum.OUTGOING and \
+            not (self.compressed == other.compressed) :
+                return False
+
+        return True
+
+    
     def identical_except_fulfiller(self, other: 'WXferEvent') -> bool :
         """Returns true if the given WXferEvent is identical except for the fulfiller field.
 
@@ -210,24 +239,11 @@ class WXferEvent(Event) :
         :return: True if the events are identical except fulfiller
         :rtype: bool
         """
-        if not (self.start == other.start) or \
-            not (self.stop == other.stop) or \
-            not (self.middle == other.middle) or \
-            not (self.duration == other.duration) or \
-            not (self.keys == other.keys) or \
-            not (self.total == other.total) or \
-            not (self.bandwidth == other.bandwidth) or \
-            not (self.requestor == other.requestor) or \
-            not (self.fulfiller != other.fulfiller) or \
-            not (self.transfer_type == other.transfer_type) or \
-            not (self.time == other.time) :
-                return False
-
-        elif self.transfer_type == TransferTypeEnum.OUTGOING and \
-            not (self.compressed == other.compressed) :
-                return False
-
-        return True
+        if self._check_most_equiv(other) :
+            if (self.fulfiller != other.fulfiller) and (self.requestor == other.requestor) :
+                return True
+            
+        return False
     
     def identical_except_requestor(self, other: 'WXferEvent') -> bool :
         """Returns true if the given WXferEvent is identical except for the requestor field.
@@ -239,24 +255,11 @@ class WXferEvent(Event) :
         :return: True if the events are identical except requestor
         :rtype: bool
         """
-        if not (self.start == other.start) or \
-            not (self.stop == other.stop) or \
-            not (self.middle == other.middle) or \
-            not (self.duration == other.duration) or \
-            not (self.keys == other.keys) or \
-            not (self.total == other.total) or \
-            not (self.bandwidth == other.bandwidth) or \
-            not (self.requestor != other.requestor) or \
-            not (self.fulfiller == other.fulfiller) or \
-            not (self.transfer_type == other.transfer_type) or \
-            not (self.time == other.time) :
-            return False
-
-        elif self.transfer_type == TransferTypeEnum.OUTGOING and \
-            not (self.compressed == other.compressed) :
-                return False
-
-        return True
+        if self._check_most_equiv(other) :
+            if (self.fulfiller == other.fulfiller) and (self.requestor != other.requestor) :
+                return True
+            
+        return False
 
     def __eq__(self, other) -> bool :
         if not isinstance(other, WXferEvent) :
@@ -264,24 +267,11 @@ class WXferEvent(Event) :
                 return False
             raise NotImplementedError("Cannot check if WXferEvent is equal to {}".format(type(other)))
         else :
-            if not (self.start == other.start) or \
-                not (self.stop == other.stop) or \
-                not (self.middle == other.middle) or \
-                not (self.duration == other.duration) or \
-                not (self.keys == other.keys) or \
-                not (self.total == other.total) or \
-                not (self.bandwidth == other.bandwidth) or \
-                not (self.requestor == other.requestor) or \
-                not (self.fulfiller == other.fulfiller) or \
-                not (self.transfer_type == other.transfer_type) or \
-                not (self.time == other.time) :
-                return False
-        
-            elif self.transfer_type == TransferTypeEnum.OUTGOING and \
-                not (self.compressed == other.compressed) :
-                    return False
+            if self._check_most_equiv(other) :
+                if (self.fulfiller == other.fulfiller) and (self.requestor == other.requestor) :
+                    return True
             
-        return True
+            return False
     
 class Task:
     name: str
