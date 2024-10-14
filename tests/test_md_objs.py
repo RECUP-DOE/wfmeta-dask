@@ -79,5 +79,20 @@ def test_creatingDummyXfer() :
     dummy = generate_dummy_wxfer(n_keys=2)
     assert dummy.n_tasks() == 2
 
+def test_equivalencyXfer() :
+    dummy_inc = generate_dummy_wxfer(TransferTypeEnum.INCOMING)
+    dummy_inc_2 = generate_dummy_wxfer(TransferTypeEnum.INCOMING)
+    dummy_out = generate_dummy_wxfer(TransferTypeEnum.OUTGOING)
+    dummy_out_2 = generate_dummy_wxfer(TransferTypeEnum.OUTGOING)
+
+    assert dummy_inc.__eq__(dummy_inc)
+    assert (dummy_inc == dummy_inc)
+    assert not (dummy_inc == dummy_out)
+    assert not (dummy_inc == dummy_inc_2)
+
+    assert (dummy_out == dummy_out)
+    assert not (dummy_out == dummy_out_2)
+
+
 def test_creatingTaskHandler() :
     assert True

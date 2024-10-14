@@ -116,6 +116,7 @@ class WXferEvent(Event) :
 
     total: int
     bandwidth: float
+    #: nan for any Incoming transfer events.
     compressed: float
 
     #: IP address representing the `who` column of the worker transfer event - the other worker involved in this event.
@@ -216,12 +217,16 @@ class WXferEvent(Event) :
             not (self.keys == other.keys) or \
             not (self.total == other.total) or \
             not (self.bandwidth == other.bandwidth) or \
-            not (self.compressed == other.compressed) or \
             not (self.requestor == other.requestor) or \
             not (self.fulfiller != other.fulfiller) or \
             not (self.transfer_type == other.transfer_type) or \
             not (self.time == other.time) :
-            return False
+                return False
+
+        elif self.transfer_type == TransferTypeEnum.OUTGOING and \
+            not (self.compressed == other.compressed) :
+                return False
+
         return True
     
     def identical_except_requestor(self, other: 'WXferEvent') -> bool :
@@ -241,12 +246,16 @@ class WXferEvent(Event) :
             not (self.keys == other.keys) or \
             not (self.total == other.total) or \
             not (self.bandwidth == other.bandwidth) or \
-            not (self.compressed == other.compressed) or \
             not (self.requestor != other.requestor) or \
             not (self.fulfiller == other.fulfiller) or \
             not (self.transfer_type == other.transfer_type) or \
             not (self.time == other.time) :
             return False
+
+        elif self.transfer_type == TransferTypeEnum.OUTGOING and \
+            not (self.compressed == other.compressed) :
+                return False
+
         return True
 
     def __eq__(self, other) -> bool :
@@ -262,12 +271,16 @@ class WXferEvent(Event) :
                 not (self.keys == other.keys) or \
                 not (self.total == other.total) or \
                 not (self.bandwidth == other.bandwidth) or \
-                not (self.compressed == other.compressed) or \
                 not (self.requestor == other.requestor) or \
                 not (self.fulfiller == other.fulfiller) or \
                 not (self.transfer_type == other.transfer_type) or \
                 not (self.time == other.time) :
                 return False
+        
+            elif self.transfer_type == TransferTypeEnum.OUTGOING and \
+                not (self.compressed == other.compressed) :
+                    return False
+            
         return True
     
 class Task:
