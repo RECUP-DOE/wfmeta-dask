@@ -17,6 +17,13 @@ class TaskState(Enum) :
     MEMORY = 'memory'
     FORGOTTEN = 'forgotten'
 
+    # Worker-Specific States
+    READY = 'ready'
+    EXECUTING = 'executing'
+    FETCH = 'fetch'
+    FLIGHT = 'flight'
+    CANCELLED = 'cancelled' # TODO: look into this one
+
 class TransferTypeEnum(Enum) :
     """Describes whether a :class:`~dask_md_obj.WXferEvent` represents an incoming or outgoing file transfer.
     """
@@ -98,6 +105,32 @@ class SchedulerEvent(Event) :
               "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
               "\tSource: \n\t\t{source_info}\n".format(source_info = "\n\t\t".join(self.source.__str__().split("\n")))
               
+class WorkerEvent(Event) :
+    """Event that represents a change in Worker task state.
+
+    """
+    start: TaskState
+    finish: TaskState
+    called_from: str # TODO: change into an ip addr class
+    time: datetime # TODO: normalize names for datetime attributes
+
+    key: str # TODO: normalize type for keys
+
+    def __init__(self, data) :
+        self.start = TaskState(data["start"])
+        self.finish = TaskState(data["finish"])
+
+        self.called_from = data["called_from"]
+        self.time = datetime.fromtimestamp(data["time"])
+        self.key = data["key"]
+
+    def __str__(self) -> str :
+        return "Worker Event for task {e.key}\n".format(e=self) + \
+        "\tEvent time: {e.time}\n".format(e=self) + \
+        "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
+        "\tSource: {e.called_from}\n".format(e=self)
+
+
 class WXferEvent(Event) :
     """An Event that represents a file transfer between Workers.
 
@@ -291,8 +324,14 @@ class Task:
                 self.add_scheduler_event(first_event)
             elif isinstance(first_event, WXferEvent) :
                 self.name = first_event.get_key_name()
+                self.initiated = True
 
                 self.add_wxfer_event(first_event)
+            elif isinstance(first_event, WorkerEvent) :
+                self.name = first_event.key
+                self.initiated = True
+
+                self.add_worker_event(first_event)
             else :
                 raise ValueError("Unexpected Event Type in Task Construction.")
 
@@ -302,6 +341,8 @@ class Task:
         elif isinstance(event_inp, WXferEvent) :
             if event_inp not in self.events :
                 self.add_wxfer_event(event_inp)
+        elif isinstance(event_inp, WorkerEvent) :
+            self.add_worker_event(event_inp)
         else :
             raise ValueError("Unexpected Event Type in Task.add_event()") 
 
@@ -324,6 +365,9 @@ class Task:
             else :
                 if event_inp.t_ends < self.t_end :
                     self.t_end = event_inp.t_ends
+
+    def add_worker_event(self, event_inp: WorkerEvent) -> None :
+        self.events.append(event_inp)
     
     def return_wxfer_events(self, filter_type: TransferTypeEnum = None) -> List[WXferEvent] :
         """Returns a list of worker transfer events associated with the Task.
@@ -373,6 +417,10 @@ class TaskHandler :
                 for i in range(0, event.n_tasks()) :
                     i_id: str = event.get_key_name(i)
                     self._inner_add_event(i_id, event)
+        elif type(event) is WorkerEvent :
+            self._inner_add_event(event.key, event)
+        else :
+            raise NotImplementedError("Unknown type handed to TaskHandler.")
 
     def _inner_add_event(self, id:str, event:Event) :
         if id not in self.tasks.keys() :
