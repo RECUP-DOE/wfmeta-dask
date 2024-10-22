@@ -107,6 +107,8 @@ if __name__ == "__main__":
     extract_worker_xfer_metadata(worker_xfer_file, debug, th)
     extract_worker_metadata(worker_trans_file, debug, th)
 
+    th.sort_tasks_by_time()
+
     if output_file is not None :
        with open(output_file, "w") as f:
             keys = list(th.tasks.keys())
