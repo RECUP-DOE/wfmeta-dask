@@ -17,6 +17,13 @@ class TaskState(Enum) :
     MEMORY = 'memory'
     FORGOTTEN = 'forgotten'
 
+    # Worker-Specific States
+    READY = 'ready'
+    EXECUTING = 'executing'
+    FETCH = 'fetch'
+    FLIGHT = 'flight'
+    CANCELLED = 'cancelled' # TODO: look into this one
+
 class TransferTypeEnum(Enum) :
     """Describes whether a :class:`~dask_md_obj.WXferEvent` represents an incoming or outgoing file transfer.
     """
@@ -98,6 +105,32 @@ class SchedulerEvent(Event) :
               "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
               "\tSource: \n\t\t{source_info}\n".format(source_info = "\n\t\t".join(self.source.__str__().split("\n")))
               
+class WorkerEvent(Event) :
+    """Event that represents a change in Worker task state.
+
+    """
+    start: TaskState
+    finish: TaskState
+    worker_id: str # TODO: change into an ip addr class
+    t_event: datetime # TODO: normalize names for datetime attributes
+
+    key: str # TODO: normalize type for keys
+
+    def __init__(self, data) :
+        self.start = TaskState(data["start"])
+        self.finish = TaskState(data["finish"])
+
+        self.worker_id = data["called_from"]
+        self.t_event = datetime.fromtimestamp(data["time"])
+        self.key = data["key"]
+
+    def __str__(self) -> str :
+        return "Worker Event for task {e.key}\n".format(e=self) + \
+        "\tEvent time: {e.t_event}\n".format(e=self) + \
+        "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
+        "\tSource: {e.worker_id}\n".format(e=self)
+
+
 class WXferEvent(Event) :
     """An Event that represents a file transfer between Workers.
 
@@ -128,7 +161,7 @@ class WXferEvent(Event) :
     transfer_type: TransferTypeEnum
 
     #: The time this event was noted.
-    time : datetime
+    t_event : datetime
 
     def __init__(self, data) :
         #: This is an example docstring.
@@ -148,11 +181,11 @@ class WXferEvent(Event) :
 
         self.transfer_type = TransferTypeEnum(data['type'])
 
-        self.time = datetime.fromtimestamp(data['time'])
+        self.t_event = datetime.fromtimestamp(data['time'])
     
     def __str__(self) -> str :
         out = "Worker Transfer Event (Type: {t})\n".format(t=self.transfer_type)
-        out += "\tEvent time: {t}\n".format(t=self.time)
+        out += "\tEvent time: {t}\n".format(t=self.t_event)
         out += "\tRequestor (Them): {r}\tFulfiller (Me): {f}\n".format(r=self.requestor, f=self.fulfiller)
         out += "\tStart: {s}\tMiddle: {m}\tEnd: {e}\t(Duration: {d})\n".format(
             s=self.start, m=self.middle, e=self.stop, d=self.duration
@@ -219,7 +252,7 @@ class WXferEvent(Event) :
             not (self.total == other.total) or \
             not (self.bandwidth == other.bandwidth) or \
             not (self.transfer_type == other.transfer_type) or \
-            not (self.time == other.time) :
+            not (self.t_event == other.t_event) :
                 return False
 
         elif self.transfer_type == TransferTypeEnum.OUTGOING and \
@@ -282,6 +315,7 @@ class Task:
 
     workers: List[str]
     initiated: bool = False
+
     def __init__(self, first_event: Union[Event, None]) :
         self.events = []
         self.workers = []
@@ -294,8 +328,14 @@ class Task:
                 self.add_scheduler_event(first_event)
             elif isinstance(first_event, WXferEvent) :
                 self.name = first_event.get_key_name()
+                self.initiated = True
 
                 self.add_wxfer_event(first_event)
+            elif isinstance(first_event, WorkerEvent) :
+                self.name = first_event.key
+                self.initiated = True
+
+                self.add_worker_event(first_event)
             else :
                 raise ValueError("Unexpected Event Type in Task Construction.")
 
@@ -305,10 +345,27 @@ class Task:
         elif isinstance(event_inp, WXferEvent) :
             if event_inp not in self.events :
                 self.add_wxfer_event(event_inp)
+        elif isinstance(event_inp, WorkerEvent) :
+            self.add_worker_event(event_inp)
         else :
             raise ValueError("Unexpected Event Type in Task.add_event()") 
 
     def add_wxfer_event(self, event_inp: WXferEvent) -> None :
+        worker_req = event_inp.requestor
+        worker_ful = event_inp.fulfiller
+
+        if worker_req not in self.workers :
+            self.workers.append(worker_req)
+        if worker_ful not in self.workers :
+            self.workers.append(worker_ful)
+
+        self.events.append(event_inp)
+
+    def add_worker_event(self, event_inp: WorkerEvent) -> None :
+        worker_inp = event_inp.worker_id
+        if worker_inp not in self.workers :
+            self.workers.append(worker_inp)
+
         self.events.append(event_inp)
 
     def add_scheduler_event(self, event_inp: SchedulerEvent) -> None :
@@ -327,6 +384,14 @@ class Task:
             else :
                 if event_inp.t_ends < self.t_end :
                     self.t_end = event_inp.t_ends
+
+    def sort_events_by_time(self) -> None :
+        """Sorts `events` to be in time order.
+
+        Compares events using their `time` attributes to list events in the order the message was sent to MOFKA.
+        """
+        self.events.sort(key=lambda x: x.t_event)
+
     
     def return_wxfer_events(self, filter_type: TransferTypeEnum = None) -> List[WXferEvent] :
         """Returns a list of worker transfer events associated with the Task.
@@ -376,6 +441,10 @@ class TaskHandler :
                 for i in range(0, event.n_tasks()) :
                     i_id: str = event.get_key_name(i)
                     self._inner_add_event(i_id, event)
+        elif type(event) is WorkerEvent :
+            self._inner_add_event(event.key, event)
+        else :
+            raise NotImplementedError("Unknown type handed to TaskHandler.")
 
     def _inner_add_event(self, id:str, event:Event) :
         if id not in self.tasks.keys() :
@@ -406,3 +475,22 @@ class TaskHandler :
     
     def get_task_by_name(self, taskname:str) -> Task :
         return self.tasks[taskname]
+    
+    def _get_arbitrary_task(self) -> Task :
+        """Returns an arbitrary task for debug purposes.
+
+        The returned task is NOT random: the the `keys()` attribute of 
+        TaskHandler's `task` attribute is turned into a list, and the 
+        first entry from this list is used to return a Task.
+
+        :return: An arbitrary Task in the TaskHandler's tasks attribute
+        :rtype: Task
+        """
+        return self.tasks[list(self.tasks.keys())[0]]
+    
+    def sort_tasks_by_time(self) -> None :
+        """Instructs all stored tasks to sort their events by time.
+        """
+        for k,v in self.tasks.items() :
+            v.sort_events_by_time()
+    
