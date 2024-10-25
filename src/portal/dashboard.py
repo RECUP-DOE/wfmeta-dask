@@ -12,7 +12,7 @@ _dash_renderer._set_react_version("18.2.0")
 
 th: TaskHandler = None
 
-with open("../data/compressed_out.pickle", 'rb') as f:
+with open("../../data/compressed_out.pickle", 'rb') as f:
     th = pickle.load(f)
 names = th.return_names()
 #df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder_unfiltered.csv')
