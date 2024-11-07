@@ -7,6 +7,8 @@ exclude = [
     ".git",
     "data",
     "docs",
+    "src/scratch",
+    "src/portal",
 ]
 
 target-version = "py38"

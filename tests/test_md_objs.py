@@ -2,7 +2,6 @@ from datetime import timedelta, datetime
 import random
 from typing import Any, Dict
 import json
-import pytest
 
 from dask_md_objs import TransferTypeEnum, WXferEvent
 
