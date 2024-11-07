@@ -1,4 +1,3 @@
 numpy>=1.24.4
 pandas>=2.0.3
 pytest>=8.3.3
-genbadge>=1.1.1
