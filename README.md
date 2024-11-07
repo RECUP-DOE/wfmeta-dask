@@ -2,6 +2,7 @@
 
 ![tests](https://github.com/RECUP-DOE/dask_capture/actions/workflows/run_tests.yaml/badge.svg)
 ![tests](https://github.com/RECUP-DOE/dask_capture/actions/workflows/lint.yaml/badge.svg)
+[![Flake8 Status](./reports/flake8/flake8-badge.svg?dummy=8484744)](./reports/flake8/index.html)
 
 A script that takes the output of Amal Gueroudji's [Mofka-Dask coupler](https://github.com/GueroudjiAmal/MofkaDask/) to consolidate the generated `.csv` files into a singular, object-focused output.
 
