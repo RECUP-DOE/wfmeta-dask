@@ -37,4 +37,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --tee --output-file flake8stats.txt
     - name: Generate Genbadge
       run : |
-        genbadge flake8 -i flake8stats.txt
+        genbadge flake8 -i flake8stats.txt -o -
+      with:
+        output: reports/flake8/flake8-badge.svg
