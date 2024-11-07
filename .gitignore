@@ -5,3 +5,4 @@ uv.lock
 docs/_build/
 .vscode
 .pytest_cache
+.ruff_cache
