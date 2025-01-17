@@ -24,11 +24,19 @@ file_meta_info = {
 }
 
 def extract_scheduler_metadata(sched_file: str, debug: bool = False, th: TaskHandler = None) -> TaskHandler:
+    """Augments the provided TaskHandler with Event objects from the `scheduler_transition.csv` file provided.
+
+    :param sched_file: location of the `scheduler_transition.csv` file from Mofka-DASK
+    :type sched_file: str
+    :param debug: whether to print the total number of tasks created and the first task, defaults to False
+    :type debug: bool, optional
+    :param th: the taskhandler to augment, defaults to None. If None, creates a new :class:`~dask_md_objs.TaskHandler` object.
+    :type th: :class:`~dask_md_objs.TaskHandler`, optional
+    :return: The taskhandler provided (or a new TaskHandler) augmented with the new events.
+    :rtype: :class:`~dask_md_objs.TaskHandler`
+    """
     sched_x = pd.read_csv(sched_file)
-    nrow, ncol = sched_x.shape
-    #begins_lt_ends(sched_x["begins"], sched_x["ends"], debug=True)
-    #begins_eq_gt_time(sched_x["begins"], sched_x["time"], debug=True)
-    #t = Event(sched_x.iloc(axis=0)[0])
+    nrow, _ = sched_x.shape
     
     if th is None :
         th = TaskHandler()
@@ -43,11 +51,23 @@ def extract_scheduler_metadata(sched_file: str, debug: bool = False, th: TaskHan
     return th
 
 def extract_worker_xfer_metadata(worker_xfer_file: str, debug: bool = False, th:TaskHandler = None) -> TaskHandler :
+    """Augments the provided TaskHandler with Event objects from the `worker_transfer.csv` file provided.
+
+    :param sched_file: location of the `worker_transfer.csv` file from Mofka-DASK
+    :type sched_file: str
+    :param debug: whether to print the total number of tasks created and the first task, defaults to False
+    :type debug: bool, optional
+    :param th: the taskhandler to augment, defaults to None. If None, creates a new :class:`~dask_md_objs.TaskHandler` object.
+    :type th: :class:`~dask_md_objs.TaskHandler`, optional
+    :return: The taskhandler provided (or a new TaskHandler) augmented with the new events.
+    :rtype: :class:`~dask_md_objs.TaskHandler`
+    """
     wxfer_x = pd.read_csv(worker_xfer_file)
-    nrow, ncol = wxfer_x.shape
+    nrow, _ = wxfer_x.shape
 
     if th is None :
         th = TaskHandler()
+
     for i in range(0, nrow) :
         th.add_event(WXferEvent(wxfer_x.iloc(axis=0)[i]))
 
@@ -58,8 +78,19 @@ def extract_worker_xfer_metadata(worker_xfer_file: str, debug: bool = False, th:
     return th
 
 def extract_worker_metadata(worker_file: str, debug: bool=False, th:TaskHandler = None) -> TaskHandler :
+    """Augments the provided TaskHandler with Event objects from the `worker_transition.csv` file provided.
+
+    :param sched_file: location of the `worker_transition.csv` file from Mofka-DASK
+    :type sched_file: str
+    :param debug: whether to print the total number of tasks created and the first task, defaults to False
+    :type debug: bool, optional
+    :param th: the taskhandler to augment, defaults to None. If None, creates a new :class:`~dask_md_objs.TaskHandler` object.
+    :type th: :class:`~dask_md_objs.TaskHandler`, optional
+    :return: The taskhandler provided (or a new TaskHandler) augmented with the new events.
+    :rtype: :class:`~dask_md_objs.TaskHandler`
+    """
     worker_dat = pd.read_csv(worker_file)
-    nrow, ncol = worker_dat.shape
+    nrow, _ = worker_dat.shape
 
     if th is None :
         th = TaskHandler()

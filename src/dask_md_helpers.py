@@ -1,10 +1,19 @@
 from datetime import datetime
-from typing import Union
+from typing import Tuple, Union
 
 import numpy as np
 
 
-def generate_times(sched_entry, debug=False) :
+def generate_times(sched_entry, debug=False) -> Tuple[datetime, Union[None, datetime], Union[None, datetime]]:
+    """Generates datetime objects from a scheduler file entry where possible. There will always be at least one successful datetime object created from the "time" field of the scheduler entry.
+
+    :param sched_entry: data from a dask scheduler transition csv file.
+    :type sched_entry: pandas dataframe row
+    :param debug: print generated dates to console, defaults to False
+    :type debug: bool, optional
+    :return: a 3-entry tuple containing either three datetime objects representing the "time", "begins", and "ends" fields (in that order), or a tuple containing a single datetime obejct representing the "time" field and two Nones.
+    :rtype: Tuple[datetime, Optional[datetime], Optional[datetime]]
+    """
     def create_poss_nan_time(timestamp: str) -> Union[None, datetime] :
         if not np.isnan(timestamp) :
             return datetime.fromtimestamp(timestamp)
