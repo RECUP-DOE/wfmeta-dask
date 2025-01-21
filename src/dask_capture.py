@@ -10,7 +10,8 @@ from dask_md_objs import SchedulerEvent, TaskHandler, WXferEvent, WorkerEvent
 ## TODO :: REMOVE ipykernel from UV
 
 def extract_metadata(filename: str, filecategory: str, debug: bool = False, th: TaskHandler = None) -> TaskHandler :
-    """Augments the provided TaskHandler with Event objects from the provided file, such that it can create new Events or augment existing ones with new Task information. 
+    """Augments the provided TaskHandler with Event objects from the provided file, such that it can create new Events or augment existing ones with new Task information.
+    Note that this function modifies the provided TaskHandler itself (aka it has side effects.)
 
     :param filename: the file to parse events from
     :type filename: str
