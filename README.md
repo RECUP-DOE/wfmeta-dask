@@ -1,6 +1,11 @@
 # DASK Metadata Capture
 
+![tests](https://github.com/RECUP-DOE/dask_capture/actions/workflows/run_tests.yaml/badge.svg)
+![tests](https://github.com/RECUP-DOE/dask_capture/actions/workflows/lint.yaml/badge.svg)
+
 A script that takes the output of Amal Gueroudji's [Mofka-Dask coupler](https://github.com/GueroudjiAmal/MofkaDask/) to consolidate the generated `.csv` files into a singular, object-focused output.
+
+Developed and tested by Polina Shpilker for the RECUP project.
 
 Expected inputs:
 - `-s` `--sched_file` : default `scheduler_transition.csv` \

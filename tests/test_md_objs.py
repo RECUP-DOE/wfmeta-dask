@@ -1,8 +1,7 @@
 from datetime import timedelta, datetime
 import random
-from typing import Dict
+from typing import Any, Dict
 import json
-import pytest
 
 from dask_md_objs import TransferTypeEnum, WXferEvent
 
@@ -31,7 +30,7 @@ def generate_random_ip(not_this_ip: str = None) -> str :
     
     return output
 
-def generate_dummy_wxfer(transfer_type: TransferTypeEnum = None, n_keys = 1) -> WXferEvent:
+def generate_dummy_wxfer_data(transfer_type: TransferTypeEnum = None, n_keys = 1) -> Dict[str, Any] :
     curtime: datetime = datetime.now()
 
     start: datetime = curtime - timedelta(hours=1, minutes=0)
@@ -67,7 +66,10 @@ def generate_dummy_wxfer(transfer_type: TransferTypeEnum = None, n_keys = 1) -> 
             'type': transfer_type.value,
             'time': int(round(time.timestamp()))}
     
-    return WXferEvent(data)
+    return data
+
+def generate_dummy_wxfer(transfer_type: TransferTypeEnum = None, n_keys = 1) -> WXferEvent:
+    return WXferEvent(generate_dummy_wxfer_data(transfer_type,n_keys))
 
 def test_creatingDummyXfer() :
     dummy = generate_dummy_wxfer(TransferTypeEnum.INCOMING)
@@ -78,6 +80,24 @@ def test_creatingDummyXfer() :
 
     dummy = generate_dummy_wxfer(n_keys=2)
     assert dummy.n_tasks() == 2
+
+def test_equivalencyXfer() :
+    dummy_inc_data = generate_dummy_wxfer_data(TransferTypeEnum.INCOMING)
+    dummy_inc = WXferEvent(dummy_inc_data)
+    dummy_inc_clone = WXferEvent(dummy_inc_data)
+    dummy_inc_2 = generate_dummy_wxfer(TransferTypeEnum.INCOMING)
+    dummy_out = generate_dummy_wxfer(TransferTypeEnum.OUTGOING)
+    dummy_out_2 = generate_dummy_wxfer(TransferTypeEnum.OUTGOING)
+
+    assert dummy_inc.__eq__(dummy_inc)
+    assert (dummy_inc == dummy_inc)
+    assert (dummy_inc == dummy_inc_clone)
+    assert not (dummy_inc == dummy_out)
+    assert not (dummy_inc == dummy_inc_2)
+
+    assert (dummy_out == dummy_out)
+    assert not (dummy_out == dummy_out_2)
+
 
 def test_creatingTaskHandler() :
     assert True
