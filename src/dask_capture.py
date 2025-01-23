@@ -62,7 +62,7 @@ if __name__ == "__main__":
                         prog='DaskParser',
                         description='Extracts metadata objects from Dask-Mofka .csv files')
 
-    parser.add_argument('-o', '--output', default="compiled_tasks.txt", 
+    parser.add_argument('-o', '--output', 
                         help="Where to store the uncompressed output.")
     parser.add_argument('-c', '--compressed_output', default="compiled_tasks.pickle",
                          help="Where to store the compressed output.")
@@ -101,7 +101,6 @@ if __name__ == "__main__":
     # off to the races
     th = TaskHandler()
 
-    # confirmed identical to previous implementation.
     print("Extracting scheduler metadata.")
     extract_metadata(sched_file, "SCHED", debug, th)
     print("Extracting worker transfer metadata.")
@@ -112,12 +111,14 @@ if __name__ == "__main__":
     print("Sorting compiled tasks.")
     th.sort_tasks_by_time()
 
-    print("Saving raw file.")
-    if output_file is not None :
-       with open(output_file, "w") as f:
-            keys = list(th.tasks.keys())
-            for i in range(0, len(keys)) :
-                f.write(th.tasks[keys[i]].__str__())
+    if output_file is not None:
+        print("Saving raw file.")
+        with open(output_file, "w") as f:
+                keys = list(th.tasks.keys())
+                for i in range(0, len(keys)) :
+                    f.write(th.tasks[keys[i]].__str__())
+    else :
+        print("No uncompressed output location specified; only saving pickled version.")
 
     print("Saving compressed file.")
     with open(output_compressed, 'wb') as f:

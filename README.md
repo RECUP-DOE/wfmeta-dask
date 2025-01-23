@@ -5,6 +5,8 @@
 
 A script that takes the output of Amal Gueroudji's [Mofka-Dask coupler](https://github.com/GueroudjiAmal/MofkaDask/) to consolidate the generated `.csv` files into a singular, object-focused output.
 
+Developed and tested by Polina Shpilker for the RECUP project.
+
 Expected inputs:
 - `-s` `--sched_file` : default `scheduler_transition.csv` \
 The location of the file that contains all messages sent by the DASK scheduler.
