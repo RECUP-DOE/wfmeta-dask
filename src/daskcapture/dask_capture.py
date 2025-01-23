@@ -5,7 +5,7 @@ import pickle
 
 import os
 
-from dask_md_objs import SchedulerEvent, TaskHandler, WXferEvent, WorkerEvent
+from daskcapture.dask_md_objs import SchedulerEvent, TaskHandler, WXferEvent, WorkerEvent
 
 ## TODO :: REMOVE ipykernel from UV
 
@@ -55,19 +55,20 @@ def extract_metadata(filename: str, filecategory: str, debug: bool = False, th: 
 
     return th
 
-if __name__ == "__main__":
+# set up arguments
+parser = ap.ArgumentParser(
+                    prog='daskcapture',
+                    description='Extracts metadata objects from Dask-Mofka .csv files')
+
+parser.add_argument('-o', '--output', 
+                    help="Where to store the uncompressed output.")
+parser.add_argument('-c', '--compressed_output', default="compiled_tasks.pickle",
+                     help="Where to store the compressed output.")
+parser.add_argument('--debug', action="store_true")
+parser.add_argument("directory")
+
+def run() :
     debug = False
-
-    parser = ap.ArgumentParser(
-                        prog='DaskParser',
-                        description='Extracts metadata objects from Dask-Mofka .csv files')
-
-    parser.add_argument('-o', '--output', 
-                        help="Where to store the uncompressed output.")
-    parser.add_argument('-c', '--compressed_output', default="compiled_tasks.pickle",
-                         help="Where to store the compressed output.")
-    parser.add_argument('--debug', action="store_true")
-    parser.add_argument("directory")
 
     # parse
     args = parser.parse_args()
@@ -125,3 +126,6 @@ if __name__ == "__main__":
         pickle.dump(th, f, pickle.HIGHEST_PROTOCOL)
 
     print("Done.")
+
+if __name__ == "__main__":
+    run()

@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Union
 
-from dask_md_helpers import generate_times
+from daskcapture.dask_md_helpers import generate_times
 
 class TaskState(Enum) :
     """Describes the possible states of a :class:`~dask_md_obj.Task`
