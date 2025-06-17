@@ -3,7 +3,7 @@ import random
 from typing import Any, Dict, Optional
 import json
 
-from dask_md_objs import SchedulerEvent, TransferTypeEnum, WXferEvent
+from objs.tasks import SchedulerEvent, TransferTypeEnum, WXferEvent
 
 def generate_random_taskname() -> str :
     output: str = "('array-8838909ee9756e34565341881e2e6f0c', {n})".format(n=str(random.randint(0,500)))
