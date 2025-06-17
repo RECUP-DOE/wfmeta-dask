@@ -5,14 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
+    "numpy>=1.24.4",
+    "pandas>=2.0.3",
+    "pytest>=8.3.3",
+]
+
+[dependency-groups]
+dev = [
     "autodocsumm>=0.2.13",
     "dash-mantine-components>=0.14.4",
     "dash>=2.18.1",
     "ipykernel>=6.29.5",
     "myst-parser>=3.0.1",
-    "numpy>=1.24.4",
-    "pandas>=2.0.3",
-    "pytest>=8.3.3",
     "sphinx>=7.1.2",
     "sphinx-rtd-theme>=2.0.0",
 ]
