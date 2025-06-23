@@ -3,10 +3,10 @@ name = "dask_capture"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 dependencies = [
-    "numpy>=1.24.4",
-    "pandas>=2.0.3",
+    "numpy>=2.0.2",
+    "pandas>=2.3.0",
     "pytest>=8.3.3",
 ]
 
@@ -23,5 +23,5 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath= [
-    "src/daskcapture"
+    "src/daskcapture/daskcapture"
 ]
