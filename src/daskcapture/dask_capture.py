@@ -1,15 +1,17 @@
 import argparse as ap
+from typing import Optional
+import warnings
 
 import pandas as pd
 import pickle
-
 import os
 
-from daskcapture.dask_md_objs import SchedulerEvent, TaskHandler, WXferEvent, WorkerEvent
+from objs.tasks import TaskHandler, WXferEvent, WorkerEvent, Event
+from objs.events import SchedulerEvent
 
 ## TODO :: REMOVE ipykernel from UV
 
-def extract_metadata(filename: str, filecategory: str, debug: bool = False, th: TaskHandler = None) -> TaskHandler :
+def extract_metadata(filename: str, filecategory: str, debug: bool = False, th: Optional[TaskHandler] = None) -> TaskHandler :
     """Augments the provided TaskHandler with Event objects from the provided file, such that it can create new Events or augment existing ones with new Task information.
     Note that this function modifies the provided TaskHandler itself (aka it has side effects.)
 
@@ -38,7 +40,7 @@ def extract_metadata(filename: str, filecategory: str, debug: bool = False, th: 
         th = TaskHandler()
     
     # store what type constructor to use based on filecategory
-    eventtype : type = None
+    eventtype : type = Event
     if filecategory == "SCHED" :
         eventtype = SchedulerEvent
     elif filecategory == "WTRANS" :

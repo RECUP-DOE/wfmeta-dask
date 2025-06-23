@@ -18,7 +18,7 @@ def generate_times(sched_entry, debug: bool = False) -> Tuple[datetime, Union[No
     """
     def create_poss_nan_time(timestamp: str) -> Union[None, datetime] :
         if not np.isnan(timestamp) :
-            return datetime.fromtimestamp(timestamp)
+            return datetime.fromtimestamp(float(timestamp))
         else :
             return None
 
