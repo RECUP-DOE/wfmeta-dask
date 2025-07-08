@@ -3,8 +3,8 @@
 from datetime import datetime
 from typing import Dict, List, Optional
 
-from objs.events import Event, WXferEvent, WorkerEvent, SchedulerEvent
-from objs.enums import TransferTypeEnum
+from .events import Event, WXferEvent, WorkerEvent, SchedulerEvent
+from .enums import TransferTypeEnum
     
 class Task:
     name: str

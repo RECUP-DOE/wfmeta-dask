@@ -6,8 +6,8 @@ import pandas as pd
 import pickle
 import os
 
-from objs.tasks import TaskHandler, WXferEvent, WorkerEvent, Event
-from objs.events import SchedulerEvent
+from .objs import TaskHandler, WXferEvent, WorkerEvent, Event
+from .objs import SchedulerEvent
 
 ## TODO :: REMOVE ipykernel from UV
 
