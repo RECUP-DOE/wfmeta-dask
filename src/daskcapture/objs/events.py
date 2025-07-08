@@ -3,8 +3,8 @@ from typing import Dict, List, Union
 
 import pandas as pd
 
-from dask_md_helpers import generate_times
-from objs.enums import TaskState, TransferTypeEnum
+from ..helpers import generate_times
+from .enums import TaskState, TransferTypeEnum
 
 
 class Event:
