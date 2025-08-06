@@ -2,7 +2,7 @@
 """
 
 from datetime import datetime
-from typing import Tuple, Union
+from typing import Tuple, Union, Callable
 
 import numpy as np
 
@@ -30,3 +30,14 @@ def generate_times(sched_entry, debug: bool = False) -> Tuple[datetime, Union[No
         print("Time: {time}\tStart: {start}\tEnds: {end}".format(time=t_event, start=t_begins, end=t_ends))
 
     return(t_event, t_begins, t_ends)
+
+def create_verbose_function(verbose: bool = False ) :
+    if verbose :
+        def y(message: str) :
+            print(message)
+        return y
+    
+    else :
+        def y(message: str) :
+            pass
+        return y
