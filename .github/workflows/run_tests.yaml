@@ -31,5 +31,7 @@ jobs:
         pip install pytest-github-report
 
     - name: Test with pytest
+      env:
+        pytest_github_report: true
       run: |
         pytest
