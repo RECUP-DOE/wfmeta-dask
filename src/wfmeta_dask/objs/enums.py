@@ -23,3 +23,8 @@ class TransferTypeEnum(Enum) :
     """
     INCOMING = 'incoming_transfer'
     OUTGOING = 'outgoing_transfer'
+
+class EventTypeEnum(Enum) :
+    SCHEDULER = 'scheduler'
+    WORKER = 'worker'
+    WORKER_TRANSFER = 'wxfer'

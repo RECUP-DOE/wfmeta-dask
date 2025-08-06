@@ -3,8 +3,10 @@
 from datetime import datetime
 from typing import Dict, List, Optional
 
+import pandas as pd
+
 from .events import Event, WXferEvent, WorkerEvent, SchedulerEvent
-from .enums import TransferTypeEnum
+from .enums import TransferTypeEnum, EventTypeEnum
     
 class Task:
     name: str
@@ -193,3 +195,35 @@ class TaskHandler :
         """
         for k,v in self.tasks.items() :
             v.sort_events_by_time()
+    
+    def to_df(self) -> Dict[EventTypeEnum, pd.DataFrame] :
+        out: Dict[EventTypeEnum, pd.DataFrame] = {}
+        # want to output 3 dataframes, 1 for each type of event
+        # go task by task and add its events as rows to the df
+        # start by just collecting a list of lists then turn into a df for speed, ig?
+
+        scheduler = []
+        worker = []
+        wxfer = []
+
+        for (_,t) in self.tasks.items() :
+            for e in t.events :
+                match e.e_type :
+                    case EventTypeEnum.SCHEDULER :
+                        scheduler.append(e)
+                    case EventTypeEnum.WORKER :
+                        worker.append(e)
+                    case EventTypeEnum.WORKER_TRANSFER :
+                        # We only want to add each wxfer event once per task
+                        # this way we know which key to include, so we don't
+                        # iterate over every key for every wxfer event,
+                        # while also still having 1 entry per key per wxfer event.
+                        wxfer.append((t.name, e))
+                    case _ :
+                        raise ValueError("Unknown event type %s encountered while the TaskHandler tried to create a dataframe." % (e.e_type))
+
+        out[EventTypeEnum.SCHEDULER] = SchedulerEvent.to_df(scheduler)
+        out[EventTypeEnum.WORKER] = WorkerEvent.to_df(worker)
+        out[EventTypeEnum.WORKER_TRANSFER] = WXferEvent.to_df(wxfer)
+
+        return out

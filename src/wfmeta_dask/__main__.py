@@ -1,10 +1,13 @@
 import argparse as ap
-from typing import Optional
+from collections.abc import Callable
+from typing import Dict, Optional
 import warnings
 
 import pandas as pd
 import pickle
 import os
+
+from wfmeta_dask.objs.enums import EventTypeEnum
 
 from .objs import TaskHandler, WXferEvent, WorkerEvent, Event
 from .objs import SchedulerEvent
@@ -33,7 +36,7 @@ def extract_metadata(filename: str, filecategory: str, debug: bool = False, th: 
         # TODO : add examples of valid filecategories.
         raise ValueError("Invalid filecategory provided: {c}.".format(c=filecategory))
 
-    dat = pd.read_csv(filename)
+    dat: pd.DataFrame = pd.read_csv(filename)
     nrow, _ = dat.shape
 
     if th is None :
@@ -76,9 +79,9 @@ if __name__ == "__main__":
     parser.add_argument("directory")
 
     # parse
-    args = parser.parse_args()
+    args: ap.Namespace = parser.parse_args()
 
-    verbose_print = create_verbose_function(args.verbose)
+    verbose_print: Callable[[str], None] = create_verbose_function(args.verbose)
 
     directory = os.path.normpath(args.directory)
     output_file = args.output
@@ -92,15 +95,15 @@ if __name__ == "__main__":
         raise ValueError("Provided path {path} is not a directory. Please provide the path to the folder containing your Mofka-DASK output files.".format(path=directory))
 
     # make sure all the files we expect exist.
-    sched_file = os.path.join(directory, "scheduler_transition.csv")
+    sched_file: str = os.path.join(directory, "scheduler_transition.csv")
     if not os.path.isfile(sched_file) :
         raise ValueError("There is no {file}.".format(file = sched_file))
     
-    worker_xfer_file = os.path.join(directory, "worker_transfer.csv")
+    worker_xfer_file: str = os.path.join(directory, "worker_transfer.csv")
     if not os.path.isfile(worker_xfer_file) :
         raise ValueError("There is no {file}.".format(file = worker_xfer_file))
     
-    worker_trans_file = os.path.join(directory, "worker_transition.csv")
+    worker_trans_file: str = os.path.join(directory, "worker_transition.csv")
     if not os.path.isfile(worker_trans_file) :
         raise ValueError("There is no {file}.".format(file = worker_trans_file))
 
@@ -123,7 +126,7 @@ if __name__ == "__main__":
         case "txt" :
             verbose_print("Saving txt file.")
             with open(output_file, "w") as f:
-                keys = list(th.tasks.keys())
+                keys: list[str] = list(th.tasks.keys())
                 for i in range(0, len(keys)) :
                     f.write(th.tasks[keys[i]].__str__())
         case "pickle" :
@@ -132,6 +135,9 @@ if __name__ == "__main__":
                 pickle.dump(th, f, pickle.HIGHEST_PROTOCOL)
         case "df_csv" :
             verbose_print("Saving pandas DataFrames serialized into csv files.")
+            dfs: Dict[EventTypeEnum, pd.DataFrame] = th.to_df()
+            for event_type, df in dfs.items() :
+                df.to_csv(args.output + "/" + event_type.name + "_df.csv")
         case _ :
             raise ValueError("Somehow reached an unknown point when checking the format argument.")
 

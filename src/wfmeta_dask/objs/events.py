@@ -1,16 +1,18 @@
 from datetime import datetime
-from typing import Dict, List, Union
+from typing import Dict, List, Tuple, Union
 
 import pandas as pd
 
 from ..helpers import generate_times
-from .enums import TaskState, TransferTypeEnum
+from .enums import TaskState, TransferTypeEnum, EventTypeEnum
 
 
 class Event:
     # TODO: make useful
     #: The time this event was noted in a message.
     t_event : datetime
+    #: The event type, for easy event filtering.
+    e_type: EventTypeEnum
 
 class TaskEvent(Event) :
     #: The starting state of the task described in this message, as a :class:`~dask_md_objs.TaskState`.
@@ -34,6 +36,8 @@ class SchedulerEvent(TaskEvent) :
     t_ends : Union[datetime, None]
     #: The stimulus ID of the scheduler event that caused this event message.
     stimulus_id: str
+
+    e_type = EventTypeEnum.SCHEDULER
     
     # TODO : key, thread, worker, prefix, group
     def __init__(self, data: pd.DataFrame) :
@@ -63,9 +67,15 @@ class SchedulerEvent(TaskEvent) :
     
     @staticmethod
     def to_df(events: List['SchedulerEvent']) -> pd.DataFrame :
-        df : pd.DataFrame = pd.DataFrame(columns=["start","finish","key","t_begins","t_ends","ip", "stimulus_id"])
+        coll = []
         for e in events :
-            df.add((e.start, e.finish, e.key, e.t_begins, e.t_ends, e.ip, e.stimulus_id))
+            coll.append([e.start, e.finish, e.key, e.t_begins, e.t_ends, e.ip, e.stimulus_id])
+
+        df : pd.DataFrame = pd.DataFrame(
+            coll,
+            columns=["start","finish","key","t_begins","t_ends","ip", "stimulus_id"],
+            #dtype=[TaskState, TaskState, str, datetime, datetime, str, str]
+            )
 
         return df
               
@@ -73,6 +83,8 @@ class WorkerEvent(TaskEvent) :
     """Event that represents a change in Worker task state.
 
     """
+
+    e_type = EventTypeEnum.WORKER
 
     def __init__(self, data) :
         self.start = TaskState(data["start"])
@@ -87,6 +99,20 @@ class WorkerEvent(TaskEvent) :
         "\tEvent time: {e.t_event}\n".format(e=self) + \
         "\tStart: {e.start.value}\t\t\t\tFinish: {e.finish.value}\n".format(e=self) + \
         "\tSource: {e.ip}\n".format(e=self)
+
+    @staticmethod
+    def to_df(events: List['WorkerEvent']) -> pd.DataFrame :
+        coll = []
+        for e in events :
+            coll.append([e.start, e.finish, e.key, e.ip])
+
+        df : pd.DataFrame = pd.DataFrame(
+            coll,
+            columns=["start","finish","key","ip"],
+            #dtype=[TaskState, TaskState, str, str]
+            )
+
+        return df
 
 
 class WXferEvent(Event) :
@@ -117,6 +143,8 @@ class WXferEvent(Event) :
 
     #: The type of transfer this event describes, using a :class:`~dask_md_objs.TransferTypeEnum`. Can be either INCOMING or OUTGOING.
     transfer_type: TransferTypeEnum
+
+    e_type = EventTypeEnum.WORKER_TRANSFER
 
     def __init__(self, data) :
         #: This is an example docstring.
@@ -153,6 +181,19 @@ class WXferEvent(Event) :
 
         out += "\n"
         return out
+
+    @staticmethod
+    def to_df(events: List[Tuple[str, 'WXferEvent']]) -> pd.DataFrame :
+        coll = []
+        for (cur_task, e) in events :
+            coll.append([e.start, e.stop, e.middle, e.duration, cur_task, e.total, e.bandwidth, e.compressed, e.requestor, e.fulfiller, e.transfer_type, e.t_event])
+
+        df : pd.DataFrame = pd.DataFrame(
+            coll,
+            columns=["start","stop","middle","duration","key","total","bandwidth","compressed","requestor","fulfiller","transfer_type", "t_event"],
+            #dtype=[datetime, datetime, datetime, float, str, int, float, float, str, str, TransferTypeEnum, datetime]
+            )
+        return df
     
     def is_only_1_task(self) -> bool :
         """Returns whether this worker transfer event only relates to one task.
