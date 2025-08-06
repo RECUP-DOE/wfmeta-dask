@@ -1,5 +1,5 @@
 [project]
-name = "dask_capture"
+name = "wfmeta-dask"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -7,21 +7,26 @@ requires-python = ">=3.8"
 dependencies = [
     "numpy>=1.24.4",
     "pandas>=2.0.3",
-    "pytest>=8.3.3",
-]
-
-[dependency-groups]
-dev = [
-    "autodocsumm>=0.2.13",
-    "dash-mantine-components>=0.14.4",
-    "dash>=2.18.1",
-    "ipykernel>=6.29.5",
-    "myst-parser>=3.0.1",
-    "sphinx>=7.1.2",
-    "sphinx-rtd-theme>=2.0.0",
 ]
 
 [tool.pytest.ini_options]
 pythonpath= [
     "src"
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1.1",
+    "pytest>=8.3.5",
+]
+documentation = [
+    "autodocsumm>=0.2.14",
+    "dash>=3.2.0",
+    "dash-mantine-components>=2.1.0",
+    "myst-parser>=3.0.1",
+    "sphinx>=7.1.2",
+    "sphinx-rtd-theme>=3.0.2",
+]
+test = [
+    "pytest>=8.3.5",
 ]
