@@ -293,9 +293,8 @@ class WXferEvent(Event):
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, WXferEvent):
-            if isinstance(other, SchedulerEvent):
-                return False
-            raise NotImplementedError("Cannot check if WXferEvent is equal to {}".format(type(other)))
+            # Not sure when a WXferEvent would ever be equal to another type of event.
+            return False
         else:
             if self._check_most_equiv(other):
                 if (self.fulfiller == other.fulfiller) and (self.requestor == other.requestor):
