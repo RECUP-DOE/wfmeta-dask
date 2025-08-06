@@ -7,7 +7,8 @@ import pandas as pd
 
 from .events import Event, WXferEvent, WorkerEvent, SchedulerEvent
 from .enums import TransferTypeEnum, EventTypeEnum
-    
+
+
 class Task:
     name: str
     events: List[Event]
@@ -18,84 +19,83 @@ class Task:
     workers: List[str]
     initiated: bool = False
 
-    def __init__(self, first_event: Optional[Event]) :
+    def __init__(self, first_event: Optional[Event]):
         self.events = []
         self.workers = []
 
-        if first_event is not None :
-            if isinstance(first_event, SchedulerEvent) :
+        if first_event is not None:
+            if isinstance(first_event, SchedulerEvent):
                 self.name = first_event.key
                 self.initiated = True
-                
+
                 self.add_scheduler_event(first_event)
-            elif isinstance(first_event, WXferEvent) :
+            elif isinstance(first_event, WXferEvent):
                 self.name = first_event.get_key_name()
                 self.initiated = True
 
                 self.add_wxfer_event(first_event)
-            elif isinstance(first_event, WorkerEvent) :
+            elif isinstance(first_event, WorkerEvent):
                 self.name = first_event.key
                 self.initiated = True
 
                 self.add_worker_event(first_event)
-            else :
+            else:
                 raise ValueError("Unexpected Event Type in Task Construction.")
 
     def add_event(self, event_inp: Event) -> None:
-        if isinstance(event_inp, SchedulerEvent) :
+        if isinstance(event_inp, SchedulerEvent):
             self.add_scheduler_event(event_inp)
-        elif isinstance(event_inp, WXferEvent) :
-            if event_inp not in self.events :
+        elif isinstance(event_inp, WXferEvent):
+            if event_inp not in self.events:
                 self.add_wxfer_event(event_inp)
-        elif isinstance(event_inp, WorkerEvent) :
+        elif isinstance(event_inp, WorkerEvent):
             self.add_worker_event(event_inp)
-        else :
-            raise ValueError("Unexpected Event Type in Task.add_event()") 
+        else:
+            raise ValueError("Unexpected Event Type in Task.add_event()")
 
-    def add_wxfer_event(self, event_inp: WXferEvent) -> None :
+    def add_wxfer_event(self, event_inp: WXferEvent) -> None:
         worker_req = event_inp.requestor
         worker_ful = event_inp.fulfiller
 
-        if worker_req not in self.workers :
+        if worker_req not in self.workers:
             self.workers.append(worker_req)
-        if worker_ful not in self.workers :
+        if worker_ful not in self.workers:
             self.workers.append(worker_ful)
 
         self.events.append(event_inp)
 
-    def add_worker_event(self, event_inp: WorkerEvent) -> None :
+    def add_worker_event(self, event_inp: WorkerEvent) -> None:
         worker_inp = event_inp.ip
-        if worker_inp not in self.workers :
+        if worker_inp not in self.workers:
             self.workers.append(worker_inp)
 
         self.events.append(event_inp)
 
-    def add_scheduler_event(self, event_inp: SchedulerEvent) -> None :
+    def add_scheduler_event(self, event_inp: SchedulerEvent) -> None:
         self.events.append(event_inp)
 
-        if event_inp.t_begins is not None :
+        if event_inp.t_begins is not None:
             if self.t_start is None:
                 self.t_start = event_inp.t_begins
-            else :
-                if event_inp.t_begins < self.t_start :
+            else:
+                if event_inp.t_begins < self.t_start:
                     self.t_start = event_inp.t_begins
 
-        if event_inp.t_ends is not None :
+        if event_inp.t_ends is not None:
             if self.t_end is None:
                 self.t_end = event_inp.t_ends
-            else :
-                if event_inp.t_ends < self.t_end :
+            else:
+                if event_inp.t_ends < self.t_end:
                     self.t_end = event_inp.t_ends
 
-    def sort_events_by_time(self) -> None :
+    def sort_events_by_time(self) -> None:
         """Sorts `events` to be in time order.
 
         Compares events using their `time` attributes to list events in the order the message was sent to MOFKA.
         """
         self.events.sort(key=lambda x: x.t_event)
 
-    
-    def return_wxfer_events(self, filter_type: Optional[TransferTypeEnum] = None) -> List[WXferEvent] :
+    def return_wxfer_events(self, filter_type: Optional[TransferTypeEnum] = None) -> List[WXferEvent]:
         """Returns a list of worker transfer events associated with the Task.
 
         :param filter_type: Whether to filter to only TransferTypeEnum.INCOMING or TransferTypeEnum.OUTGOING, defaults to None
@@ -105,98 +105,99 @@ class Task:
         """
         filter = (filter_type is not None)
         output = []
-        for e in self.events :
-            if isinstance(e, WXferEvent) :
-                if filter :
-                    if e.transfer_type == filter_type :
+        for e in self.events:
+            if isinstance(e, WXferEvent):
+                if filter:
+                    if e.transfer_type == filter_type:
                         output.append(e)
-                else :
+                else:
                     output.append(e)
         return output
 
-    def __str__(self) -> str :
+    def __str__(self) -> str:
         event_strs = ""
-        for e in self.events :
+        for e in self.events:
             event_strs += e.__str__()
 
         out = "Task object for task {e.name}:\n".format(e=self)
-        out += "\tEvent objects:\n\t\t{event_info}".format(event_info = "\n\t\t".join(event_strs.split("\n")))
+        out += "\tEvent objects:\n\t\t{event_info}".format(event_info="\n\t\t".join(event_strs.split("\n")))
         out = out.strip()
         out += "\n\tStart time: {e.t_start}\tEnd time: {e.t_end}\n".format(e=self)
 
         return out
 
-class TaskHandler :
+
+class TaskHandler:
     tasks: Dict[str, Task]
 
-    def __init__(self) :
+    def __init__(self):
         self.tasks = {}
-    
-    def add_event(self, event: Event) -> None :
-        if type(event) is SchedulerEvent :
+
+    def add_event(self, event: Event) -> None:
+        if type(event) is SchedulerEvent:
             self._inner_add_event(event.key, event)
-        elif type(event) is WXferEvent :
-            if event.is_only_1_task() :
+        elif type(event) is WXferEvent:
+            if event.is_only_1_task():
                 e_id: str = event.get_key_name(0)
                 self._inner_add_event(e_id, event)
-            else :
-                for i in range(0, event.n_tasks()) :
+            else:
+                for i in range(0, event.n_tasks()):
                     i_id: str = event.get_key_name(i)
                     self._inner_add_event(i_id, event)
-        elif type(event) is WorkerEvent :
+        elif type(event) is WorkerEvent:
             self._inner_add_event(event.key, event)
-        else :
+        else:
             raise NotImplementedError("Unknown type handed to TaskHandler.")
 
-    def _inner_add_event(self, id:str, event:Event) :
-        if id not in self.tasks.keys() :
+    def _inner_add_event(self, id: str, event: Event):
+        if id not in self.tasks.keys():
             temp_task = Task(event)
             self.tasks[id] = temp_task
-        else :
+        else:
             self.tasks[id].add_event(event)
-    
-    def return_names(self) -> List[str] :
+
+    def return_names(self) -> List[str]:
         return list(self.tasks.keys())
-    
+
     def return_all_wxfer_events(self, filter_type: Optional[TransferTypeEnum] = None) -> List[WXferEvent]:
         output: List[WXferEvent] = []
-        for t in self.tasks.values() :
+        for t in self.tasks.values():
             returned = t.return_wxfer_events(filter_type)
-            for r in returned :
-                if r not in output :
+            for r in returned:
+                if r not in output:
                     output.append(r)
 
         return output
 
-    def return_all_events(self) -> List[Event] :
+    def return_all_events(self) -> List[Event]:
         output: List[Event] = []
-        for t in self.tasks.values() :
+        for t in self.tasks.values():
             raise NotImplementedError()
-        
+
         return list(set(output))
-    
-    def get_task_by_name(self, taskname:str) -> Task :
+
+    def get_task_by_name(self, taskname: str) -> Task:
         return self.tasks[taskname]
-    
-    def _get_arbitrary_task(self) -> Task :
+
+    def _get_arbitrary_task(self) -> Task:
         """Returns an arbitrary task for debug purposes.
 
-        The returned task is NOT random: the the `keys()` attribute of 
-        TaskHandler's `task` attribute is turned into a list, and the 
+        The returned task is NOT random: the the `keys()` attribute of
+        TaskHandler's `task` attribute is turned into a list, and the
         first entry from this list is used to return a Task.
 
         :return: An arbitrary Task in the TaskHandler's tasks attribute
         :rtype: Task
         """
         return self.tasks[list(self.tasks.keys())[0]]
-    
-    def sort_tasks_by_time(self) -> None :
+
+    def sort_tasks_by_time(self) -> None:
         """Instructs all stored tasks to sort their events by time.
         """
-        for k,v in self.tasks.items() :
+        for k, v in self.tasks.items():
             v.sort_events_by_time()
-    
-    def to_df(self) -> Dict[EventTypeEnum, pd.DataFrame] :
+
+    def to_df(self) -> Dict[EventTypeEnum, pd.DataFrame]:
         out: Dict[EventTypeEnum, pd.DataFrame] = {}
         # want to output 3 dataframes, 1 for each type of event
         # go task by task and add its events as rows to the df
@@ -206,20 +207,20 @@ class TaskHandler :
         worker = []
         wxfer = []
 
-        for (_,t) in self.tasks.items() :
-            for e in t.events :
-                match e.e_type :
-                    case EventTypeEnum.SCHEDULER :
+        for (_, t) in self.tasks.items():
+            for e in t.events:
+                match e.e_type:
+                    case EventTypeEnum.SCHEDULER:
                         scheduler.append(e)
-                    case EventTypeEnum.WORKER :
+                    case EventTypeEnum.WORKER:
                         worker.append(e)
-                    case EventTypeEnum.WORKER_TRANSFER :
+                    case EventTypeEnum.WORKER_TRANSFER:
                         # We only want to add each wxfer event once per task
                         # this way we know which key to include, so we don't
                         # iterate over every key for every wxfer event,
                         # while also still having 1 entry per key per wxfer event.
                         wxfer.append((t.name, e))
-                    case _ :
+                    case _:
                         raise ValueError("Unknown event type %s encountered while the TaskHandler tried to create a dataframe." % (e.e_type))
 
         out[EventTypeEnum.SCHEDULER] = SchedulerEvent.to_df(scheduler)
