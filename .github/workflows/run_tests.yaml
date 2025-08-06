@@ -5,9 +5,9 @@ name: Tests
 
 on:
   push:
-    branches: [ "master", "dev" ]
+    branches: [ "master", "dev", "dev/*" ]
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "master", "dev", "dev/*" ]
 
 permissions:
   contents: read
