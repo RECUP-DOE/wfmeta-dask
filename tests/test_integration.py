@@ -8,15 +8,15 @@ from wfmeta_dask.objs.tasks import TaskHandler
 
 def test_simple(tmpdir) :
     # Copy example files
-    i_sc = Path("./tests/test_data/scheduler_slice.csv")
+    i_sc = Path("./tests/test_data/scheduler_transition.csv")
     o_sc = Path(tmpdir / "scheduler_transition.csv")
     copy(str(i_sc), str(o_sc))
 
-    i_wo = Path("./tests/test_data/worker_slice.csv")
+    i_wo = Path("./tests/test_data/worker_transition.csv")
     o_wo = Path(tmpdir / "worker_transition.csv")
     copy(str(i_wo), str(o_wo))
 
-    i_wx = Path("./tests/test_data/worker_transfer_slice.csv")
+    i_wx = Path("./tests/test_data/worker_transfer.csv")
     o_wx = Path(tmpdir / "worker_transfer.csv")
     copy(str(i_wx), str(o_wx))
 

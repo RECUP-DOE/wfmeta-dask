@@ -1,0 +1,100 @@
+,start,finish,key,t_begins,t_ends,ip,stimulus_id
+0,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 127, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+1,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 127, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+2,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 127)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+3,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 127)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+4,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 127, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+5,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 127, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+6,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 126, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+7,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 126, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+8,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 126)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+9,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 126)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+10,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 126, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+11,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 127, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+12,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 126, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+13,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-80f8e741f300d2a084fb2c4c7220e333', 63, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+14,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 126, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+15,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-2acf6532b07f4fbe3e253eefeb7a5ebc', 63, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+16,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 125, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+17,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 125, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+18,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 125)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+19,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 125)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+20,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 125, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+21,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 125, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+22,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 124, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+23,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 124, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+24,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 124)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+25,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 124)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+26,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 124, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+27,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 124, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+28,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-2acf6532b07f4fbe3e253eefeb7a5ebc', 62, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+29,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-8dd005561753a0069a30a564b3da22ea', 31, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+30,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 125, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+31,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 124, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+32,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-80f8e741f300d2a084fb2c4c7220e333', 62, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+33,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-8c47771865924cf589c1b50dcf089083', 31, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+34,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 123, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+35,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 123, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+36,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 123)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+37,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 123)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+38,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 123, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+39,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 123, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+40,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 122, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+41,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 122, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+42,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 122)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+43,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 122)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+44,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 122, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+45,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 122, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+46,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-2acf6532b07f4fbe3e253eefeb7a5ebc', 61, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+47,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 123, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+48,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 122, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+49,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-80f8e741f300d2a084fb2c4c7220e333', 61, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+50,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 121, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+51,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 121, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+52,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 121)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+53,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 121)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+54,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 121, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+55,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 121, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+56,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 120, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+57,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 120, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+58,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 120)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+59,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 120)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+60,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 120, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+61,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 121, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+62,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 120, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+63,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-80f8e741f300d2a084fb2c4c7220e333', 60, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+64,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-8c47771865924cf589c1b50dcf089083', 30, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+65,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-1910eb1fea4393b8b46bad62e1bd1e92', 15, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+66,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 120, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+67,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-2acf6532b07f4fbe3e253eefeb7a5ebc', 60, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+68,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-8dd005561753a0069a30a564b3da22ea', 30, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+69,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-70478972c24ad36db8a8ba4b71d9b19e', 15, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+70,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 119, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+71,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 119, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+72,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 119)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+73,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 119)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+74,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 119, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+75,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 119, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+76,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 118, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+77,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 118, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+78,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 118)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+79,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 118)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+80,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 118, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+81,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 118, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+82,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-2acf6532b07f4fbe3e253eefeb7a5ebc', 59, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+83,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 119, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+84,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-f51ddbdd2414581636b6798cd76ef954', 118, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+85,TaskState.RELEASED,TaskState.WAITING,"('chunk_max-partial-80f8e741f300d2a084fb2c4c7220e333', 59, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+86,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 117, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+87,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 117, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+88,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 117)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+89,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 117)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+90,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 117, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+91,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 117, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+92,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 116, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+93,TaskState.WAITING,TaskState.PROCESSING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 116, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+94,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 116)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+95,TaskState.WAITING,TaskState.PROCESSING,"('array-8838909ee9756e34565341881e2e6f0c', 116)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+96,TaskState.RELEASED,TaskState.WAITING,"('_map_read_frame-c50155175b03e4c1ec9664317841e345', 116, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+97,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-5a09aab47a69898004101a2c5b6e1b96', 116, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
+98,TaskState.RELEASED,TaskState.WAITING,"('chunk_min-partial-2acf6532b07f4fbe3e253eefeb7a5ebc', 58, 0, 0, 0)",,,tcp://10.201.0.220:8786,update-graph-1713455680.1067564
