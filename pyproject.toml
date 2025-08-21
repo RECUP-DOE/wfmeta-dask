@@ -1,13 +1,24 @@
 [project]
-name = "wfmeta-dask"
-version = "0.1.0"
-description = "Add your description here"
+name = "wfmeta_dask"
+version = "1.0.0"
+authors = [
+    { name="Polina Shpilker", email="infinite.loopholes@gmail.com" }
+]
+description = "wfmeta Tool to parse and restructure the scheduler and worker event logs captured by the dask-mofka plugin."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "numpy>1.24.4",
     "pandas>=2.0.3",
 ]
+
+[project.urls]
+Homepage = "https://github.com/RECUP-DOE/wfmeta-dask"
+
+[project.scripts]
+wfmeta_dask = "wfmeta_dask:create_parser_and_run"
 
 [tool.pytest.ini_options]
 pythonpath= [
