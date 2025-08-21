@@ -5,3 +5,6 @@ uv.lock
 docs/_build/
 .vscode
 .pytest_cache
+*.egg*
+tmp
+dist/

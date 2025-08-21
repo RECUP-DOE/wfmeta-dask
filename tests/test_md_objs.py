@@ -1,9 +1,9 @@
 from datetime import timedelta, datetime
 import random
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 import json
 
-from dask_md_objs import TransferTypeEnum, WXferEvent
+from wfmeta_dask.objs.tasks import TransferTypeEnum, WXferEvent
 
 def generate_random_taskname() -> str :
     output: str = "('array-8838909ee9756e34565341881e2e6f0c', {n})".format(n=str(random.randint(0,500)))
@@ -19,7 +19,7 @@ def generate_random_keys(n: int = 1) -> Dict[str, int] :
     
     return output
 
-def generate_random_ip(not_this_ip: str = None) -> str :
+def generate_random_ip(not_this_ip: Optional[str] = None) -> str :
     output = "tcp://{a:02n}.{b:03n}.{c:n}.{d:03n}:{e:5f}".format(a = random.randint(1,99), 
                     b = random.randint(1,999), c = random.randint(0,9), d = random.randint(1,999),
                     e = random.randint(1,99999))
@@ -30,7 +30,7 @@ def generate_random_ip(not_this_ip: str = None) -> str :
     
     return output
 
-def generate_dummy_wxfer_data(transfer_type: TransferTypeEnum = None, n_keys = 1) -> Dict[str, Any] :
+def generate_dummy_wxfer_data(transfer_type: Optional[TransferTypeEnum] = None, n_keys = 1) -> Dict[str, Any] :
     curtime: datetime = datetime.now()
 
     start: datetime = curtime - timedelta(hours=1, minutes=0)
@@ -68,7 +68,7 @@ def generate_dummy_wxfer_data(transfer_type: TransferTypeEnum = None, n_keys = 1
     
     return data
 
-def generate_dummy_wxfer(transfer_type: TransferTypeEnum = None, n_keys = 1) -> WXferEvent:
+def generate_dummy_wxfer(transfer_type: Optional[TransferTypeEnum] = None, n_keys = 1) -> WXferEvent:
     return WXferEvent(generate_dummy_wxfer_data(transfer_type,n_keys))
 
 def test_creatingDummyXfer() :
@@ -101,3 +101,7 @@ def test_equivalencyXfer() :
 
 def test_creatingTaskHandler() :
     assert True
+
+def test_SchedulerEventToDF() :
+
+    pass

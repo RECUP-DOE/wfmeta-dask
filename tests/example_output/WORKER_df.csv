@@ -1,0 +1,100 @@
+,start,finish,key,ip
+0,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 127, 0, 0, 0)",tcp://10.201.0.212:34699
+1,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 127, 0, 0, 0)",tcp://10.201.0.212:34699
+2,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 127, 0, 0, 0)",tcp://10.201.0.212:34699
+3,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 127)",tcp://10.201.0.229:37485
+4,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 127)",tcp://10.201.0.229:37485
+5,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 127)",tcp://10.201.0.229:37485
+6,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 126, 0, 0, 0)",tcp://10.201.0.229:45945
+7,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 126, 0, 0, 0)",tcp://10.201.0.229:45945
+8,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 126, 0, 0, 0)",tcp://10.201.0.229:45945
+9,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 126)",tcp://10.201.0.229:44955
+10,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 126)",tcp://10.201.0.229:44955
+11,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 126)",tcp://10.201.0.229:44955
+12,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 125, 0, 0, 0)",tcp://10.201.0.229:41793
+13,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 125, 0, 0, 0)",tcp://10.201.0.229:41793
+14,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 125, 0, 0, 0)",tcp://10.201.0.229:41793
+15,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 125)",tcp://10.201.0.212:38553
+16,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 125)",tcp://10.201.0.212:38553
+17,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 125)",tcp://10.201.0.212:38553
+18,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 124, 0, 0, 0)",tcp://10.201.0.212:38577
+19,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 124, 0, 0, 0)",tcp://10.201.0.212:38577
+20,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 124, 0, 0, 0)",tcp://10.201.0.212:38577
+21,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 124)",tcp://10.201.0.212:45449
+22,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 124)",tcp://10.201.0.212:45449
+23,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 124)",tcp://10.201.0.212:45449
+24,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 123, 0, 0, 0)",tcp://10.201.0.212:34699
+25,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 123, 0, 0, 0)",tcp://10.201.0.212:34699
+26,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 123, 0, 0, 0)",tcp://10.201.0.212:34699
+27,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 123)",tcp://10.201.0.229:37485
+28,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 123)",tcp://10.201.0.229:37485
+29,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 123)",tcp://10.201.0.229:37485
+30,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 122, 0, 0, 0)",tcp://10.201.0.229:45945
+31,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 122, 0, 0, 0)",tcp://10.201.0.229:45945
+32,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 122, 0, 0, 0)",tcp://10.201.0.229:45945
+33,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 122)",tcp://10.201.0.229:44955
+34,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 122)",tcp://10.201.0.229:44955
+35,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 122)",tcp://10.201.0.229:44955
+36,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 121, 0, 0, 0)",tcp://10.201.0.229:41793
+37,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 121, 0, 0, 0)",tcp://10.201.0.229:41793
+38,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 121, 0, 0, 0)",tcp://10.201.0.229:41793
+39,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 121)",tcp://10.201.0.212:38553
+40,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 121)",tcp://10.201.0.212:38553
+41,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 121)",tcp://10.201.0.212:38553
+42,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 120, 0, 0, 0)",tcp://10.201.0.212:38577
+43,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 120, 0, 0, 0)",tcp://10.201.0.212:38577
+44,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 120, 0, 0, 0)",tcp://10.201.0.212:38577
+45,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 120)",tcp://10.201.0.212:45449
+46,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 120)",tcp://10.201.0.212:45449
+47,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 120)",tcp://10.201.0.212:45449
+48,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 119, 0, 0, 0)",tcp://10.201.0.212:34699
+49,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 119, 0, 0, 0)",tcp://10.201.0.212:34699
+50,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 119, 0, 0, 0)",tcp://10.201.0.212:34699
+51,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 119)",tcp://10.201.0.229:37485
+52,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 119)",tcp://10.201.0.229:37485
+53,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 119)",tcp://10.201.0.229:37485
+54,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 118, 0, 0, 0)",tcp://10.201.0.229:45945
+55,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 118, 0, 0, 0)",tcp://10.201.0.229:45945
+56,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 118, 0, 0, 0)",tcp://10.201.0.229:45945
+57,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 118)",tcp://10.201.0.229:44955
+58,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 118)",tcp://10.201.0.229:44955
+59,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 118)",tcp://10.201.0.229:44955
+60,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 117, 0, 0, 0)",tcp://10.201.0.229:41793
+61,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 117, 0, 0, 0)",tcp://10.201.0.229:41793
+62,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 117, 0, 0, 0)",tcp://10.201.0.229:41793
+63,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 117)",tcp://10.201.0.212:38553
+64,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 117)",tcp://10.201.0.212:38553
+65,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 117)",tcp://10.201.0.212:38553
+66,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 116, 0, 0, 0)",tcp://10.201.0.212:38577
+67,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 116, 0, 0, 0)",tcp://10.201.0.212:38577
+68,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 116, 0, 0, 0)",tcp://10.201.0.212:38577
+69,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 116)",tcp://10.201.0.212:45449
+70,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 116)",tcp://10.201.0.212:45449
+71,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 116)",tcp://10.201.0.212:45449
+72,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 115, 0, 0, 0)",tcp://10.201.0.212:34699
+73,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 115, 0, 0, 0)",tcp://10.201.0.212:34699
+74,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 115, 0, 0, 0)",tcp://10.201.0.212:34699
+75,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 113, 0, 0, 0)",tcp://10.201.0.229:41793
+76,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 113, 0, 0, 0)",tcp://10.201.0.229:41793
+77,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 113, 0, 0, 0)",tcp://10.201.0.229:41793
+78,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 115)",tcp://10.201.0.229:37485
+79,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 115)",tcp://10.201.0.229:37485
+80,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 115)",tcp://10.201.0.229:37485
+81,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 113)",tcp://10.201.0.212:38553
+82,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 113)",tcp://10.201.0.212:38553
+83,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 113)",tcp://10.201.0.212:38553
+84,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 112, 0, 0, 0)",tcp://10.201.0.212:38577
+85,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 112, 0, 0, 0)",tcp://10.201.0.212:38577
+86,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 112, 0, 0, 0)",tcp://10.201.0.212:38577
+87,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 114, 0, 0, 0)",tcp://10.201.0.229:45945
+88,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 114, 0, 0, 0)",tcp://10.201.0.229:45945
+89,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 114, 0, 0, 0)",tcp://10.201.0.229:45945
+90,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 114)",tcp://10.201.0.229:44955
+91,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 114)",tcp://10.201.0.229:44955
+92,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 114)",tcp://10.201.0.229:44955
+93,TaskState.RELEASED,TaskState.WAITING,"('array-8838909ee9756e34565341881e2e6f0c', 112)",tcp://10.201.0.212:45449
+94,TaskState.WAITING,TaskState.READY,"('array-8838909ee9756e34565341881e2e6f0c', 112)",tcp://10.201.0.212:45449
+95,TaskState.READY,TaskState.EXECUTING,"('array-8838909ee9756e34565341881e2e6f0c', 112)",tcp://10.201.0.212:45449
+96,TaskState.RELEASED,TaskState.WAITING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 111, 0, 0, 0)",tcp://10.201.0.212:34699
+97,TaskState.WAITING,TaskState.READY,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 111, 0, 0, 0)",tcp://10.201.0.212:34699
+98,TaskState.READY,TaskState.EXECUTING,"('block-info-_map_read_frame-c50155175b03e4c1ec9664317841e345', 111, 0, 0, 0)",tcp://10.201.0.212:34699
